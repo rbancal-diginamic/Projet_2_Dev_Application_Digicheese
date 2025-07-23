@@ -14,11 +14,11 @@ def get_client_by_id(id: int, session: Session = Depends(get_db)):
 
 
 @router.post("/")
-def create_client(client: dict, session: Session = Depends(get_db)):
+def create_client(body: dict, session: Session = Depends(get_db)):
     pass
 
 @router.patch("/{id}")
-def patch_client(id: int, session: Session = Depends(get_db)):
+def patch_client(id: int, body: dict, session: Session = Depends(get_db)):
     pass
 
 @router.delete("/{id}")
