@@ -4,5 +4,5 @@
 /annexes/cours-api/
 /annexes/Github/
 
+/**/__pycache__/
 .env
-src/__pycache__/
