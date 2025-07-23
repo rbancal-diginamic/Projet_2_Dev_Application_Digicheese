@@ -5,3 +5,4 @@
 /annexes/Github/
 
 .env
+src/__pycache__/
