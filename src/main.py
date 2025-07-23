@@ -19,10 +19,10 @@ from .models import (
     RoleUtilisateur
 )
 
-from .routers import router_client, router_objet
+from .routers import global_router
 
 app = FastAPI()
-app.include_router(router)
+app.include_router(global_router)
 SQLModel.metadata.create_all(bind=engine)
 
 @app.get("/")

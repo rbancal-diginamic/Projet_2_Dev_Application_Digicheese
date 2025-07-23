@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from sqlmodel import Session
-from ..database import get_db
+from database import get_db
 
 router = APIRouter(prefix="/client", tags=["Clients"])
 
