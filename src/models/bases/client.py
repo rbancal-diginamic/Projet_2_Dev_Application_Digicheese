@@ -1,15 +1,15 @@
-from sqlalchemy import Column, String, Boolean
-from sqlmodel import SQLModel
+from sqlalchemy import Column, String
+from sqlmodel import SQLModel, Field
 
 
 class ClientBase(SQLModel):
-    c_genre = Column(String(8), nullable=True)
-    c_nom = Column(String(40))
-    c_prenom = Column(String(30))
-    c_adresse_1 = Column(String(50), nullable=True)
-    c_adresse_2 = Column(String(50), nullable=True)
-    c_adresse_3 = Column(String(50), nullable=True)
-    c_telephone = Column(String(13), nullable=True)
-    c_email = Column(String(255), nullable=True)
-    c_portable = Column(String(13), nullable=True)
-    c_newsletter = Column(Boolean, nullable=True)
+    c_genre: str | None = Field(default=None, max_length=8, nullable=True)
+    c_nom: str = Field(max_length=40, index=True)
+    c_prenom: str = Field(max_length=30)
+    c_adresse_1: str | None = Field(default=None, max_length=50, nullable=True)
+    c_adresse_2: str | None = Field(default=None, max_length=50, nullable=True)
+    c_adresse_3: str | None = Field(default=None, max_length=50, nullable=True)
+    c_telephone: str | None = Field(default=None, max_length=13, nullable=True)
+    c_email: str | None = Field(default=None, max_length=255, nullable=True)
+    c_portable: str | None = Field(default=None, max_length=13, nullable=True)
+    c_newsletter: int | None = Field(default=None, nullable=True)

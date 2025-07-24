@@ -1,8 +1,8 @@
+from sqlmodel import Field
 from models.bases.client import ClientBase
-from sqlalchemy import Integer, Column, String
 
 
 class ClientPatch(ClientBase):
-    c_nom = Column(String(40), nullable=True)
-    c_prenom = Column(String(30), nullable=True)
-    c_fk_ville_id = Column(Integer, nullable=True)  # FIXME : Corriger le champs avec la FK
+    c_nom: str | None = Field(default=None, max_length=40, index=True, nullable=True)
+    c_prenom: str | None = Field(default=None, max_length=30, nullable=True)
+    c_fk_ville_id: int | None = Field(default=None, foreign_key="d_communes.id", nullable=True)

@@ -1,8 +1,8 @@
-from sqlalchemy import Column, Integer, String, Boolean
+from sqlmodel import Field
 from models.bases.client import ClientBase
 
 
 class ClientDB(ClientBase, table=True):
     __tablename__ = "d_client"
-    c_id = Column(Integer, primary_key=True, index=True)
-    c_fk_ville_id = Column(Integer, nullable=True) # FIXME : Corriger le champs avec la FK
+    c_id: int | None = Field(default=None, primary_key=True)
+    c_fk_ville_id: int | None = Field(default=None, foreign_key="d_communes.id", nullable=True)
