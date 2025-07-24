@@ -1,8 +1,9 @@
 from abc import ABC, abstractmethod
 from typing import Optional, List
-from models.db_models.client_db import ClientDB
-from models.schemas.clients.client_patch import ClientPatch
-from models.schemas.clients.client_post import ClientPost
+
+from src.models.db_models.client_db import ClientDB
+from src.models.schemas.clients.client_patch import ClientPatch
+from src.models.schemas.clients.client_post import ClientPost
 
 
 class ClientRepository(ABC):

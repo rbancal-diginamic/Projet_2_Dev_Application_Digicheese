@@ -1,15 +1,13 @@
 from fastapi import APIRouter, Depends
 from sqlmodel import Session
-from database import get_db
-from repositories.client_repository import ClientRepository
-from repositories.sql_alchemy_client_repository import SQLAlchemyClientRepository
+from ..database import get_db
+from ..services.client_service import ClientService
 
 router = APIRouter(prefix="/client", tags=["Clients"])
 
 @router.get("/")
 def get_clients(session: Session = Depends(get_db)):
-    return SQLAlchemyClientRepository(session).get_all()
-    # pass
+    return ClientService(session).get_clients(session)
 
 @router.get("/{id}")
 def get_client_by_id(id: int, session: Session = Depends(get_db)):
