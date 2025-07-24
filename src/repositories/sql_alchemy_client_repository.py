@@ -19,15 +19,17 @@ class SQLAlchemyClientRepository(ClientRepository):
         return client_db
 
     def get_by_id(self, client_id: ClientDB.c_id) -> Optional[ClientDB]:
+        statement = select(ClientDB).where(ClientDB.c_id == client_id)
         client_db = self.session.query(ClientDB).get(client_id)
         if client_db:
             return ClientDB(**client_db.model_dump())
         return None
 
     def get_by_name(self, client_nom: ClientDB.c_nom) -> Optional[ClientDB]:
-        client_db = self.session.query(ClientDB).where(ClientDB.c_nom == client_nom).first()
+        statement = select(client_db).where(ClientDB.c_nom == client.nom)
+        client_db = self.session.exec(ClientDB).where(statement).first()
         if client_db:
-            return ClientDB(**client_db.model_dump())
+            return client_db
         return None
 
     def get_all(self, session: Session) -> List[ClientDB]:
