@@ -2,8 +2,8 @@ from typing import List
 
 from sqlmodel import Field, Relationship
 
-from src.models.bases.commune import Commune
-from src.models.bases.departement import Departement
+from ..bases.commune import Commune
+from ..bases.departement import Departement
 
 
 class DepartementDB(Departement, table=True):
