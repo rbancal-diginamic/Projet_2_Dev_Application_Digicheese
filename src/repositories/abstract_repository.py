@@ -13,7 +13,7 @@ class AbstractRepository(ABC):
         pass
 
     @abstractmethod
-    def get_all(self) -> List[SQLModel]:
+    def get_all(self) -> List[SQLModel] | None:
         pass
 
     @abstractmethod
