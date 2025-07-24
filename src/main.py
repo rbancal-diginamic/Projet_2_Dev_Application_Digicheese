@@ -1,23 +1,25 @@
-from fastapi import FastAPI, Depends
-from sqlmodel import SQLModel, select, Session
+from fastapi import FastAPI
+from sqlmodel import SQLModel
 
-from .database import get_db, engine
-from .models import (
-    Departement,
-    Commune,
-    Client,
-    Commande,
-    Conditionnement,
-    Objet,
-    ObjetCond,
-    Detail,
-    DetailObjet,
-    Enseigne,
-    Poids,
-    Role,
-    Utilisateur,
-    RoleUtilisateur
-)
+from .database import engine
+# from .models import (
+#     Departement,
+#     Commune,
+#     Client,
+#     Commande,
+#     Conditionnement,
+#     Objet,
+#     ObjetCond,
+#     Detail,
+#     DetailObjet,
+#     Enseigne,
+#     Poids,
+#     Role,
+#     Utilisateur,
+#     RoleUtilisateur
+# )
+
+from .models import client_db
 
 from .routers import global_router
 
