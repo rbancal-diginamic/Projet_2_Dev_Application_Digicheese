@@ -1,5 +1,6 @@
 from sqlmodel import Session
 
+from models.schemas.clients.client_patch import ClientPatch
 from ..models.db_models.client_db import ClientDB
 from ..models.schemas.clients.client_post import ClientPost
 from ..repositories.sql_alchemy_client_repository import SQLAlchemyClientRepository
@@ -14,8 +15,8 @@ class ClientService:
         client['c_prenom'] = client["c_prenom"].capitalize()
         return client
 
-    def create_client(self, client: ClientPost) -> ClientDB:
-        client = client.model_dump()
+    def create_client(self, client_body: ClientPost) -> ClientDB:
+        client = client_body.model_dump()
         client = self.__traitement(client)
         return self.repository.add(client)
 
@@ -28,8 +29,9 @@ class ClientService:
     def get_clients(self) -> list[ClientDB]:
         return self.repository.get_all()
 
-    def update_client(self, client_id: int, client_body: dict) -> ClientDB | None:
-        return self.repository.update(client_id, client_body)
+    def update_client(self, client_id: int, client_body: ClientPatch) -> ClientDB | None:
+        client = client_body.model_dump()
+        return self.repository.update(client_id, client)
 
     def delete_client(self, c_id: int | None = None) -> bool:
         client = self.repository.get_by_id(c_id)
