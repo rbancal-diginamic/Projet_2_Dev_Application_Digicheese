@@ -1,8 +1,8 @@
 
 from typing import Optional, List
-from sqlmodel import Session, select
 
-from ..models.db_models.client_db import ObjetDB
+from sqlmodel import Session, select
+from ..models.db_models.objet_db import ObjetDB
 from ..repositories.abstract_repository import AbstractRepository
 
 
@@ -15,34 +15,32 @@ class SQLAlchemyObjetRepository(AbstractRepository):
         objet_db = ObjetDB(**objet)
         self.session.add(objet_db)
         self.session.commit()
+        return objet_db
 
-    def get_by_id(self, objet_id: ObjetDB.o_id) -> Optional[ObjetDB]:
-        statement = select(ObjetDB).where(ObjetDB.c_id == objet_id)
-        objet_db = self.session.exec(statement).first()
-        if objet_db:
-            return objet_db
-        return None
-    
-    def get_by_name(self, client_nom: ObjetDB.o_nom) -> Optional[ObjetDB]:
-        statement = select(ObjetDB).where(ObjetDB.c_nom == objet_nom)
+    def get_by_id(self, objet_id: int) -> Optional[ObjetDB]:
+        statement = select(ObjetDB).where(ObjetDB.o_id == objet_id)
         objet_db = self.session.exec(statement).first()
         if objet_db:
             return objet_db
         return None
 
-    def get_all(self) -> List[ObjetDB]:
-        objet_db = self.session.query(ObjetDB).all()
-        return [ObjetDB.model_validate(c) for c in objet_db]
+    def get_all(self) -> List[ObjetDB] | None:
+        statement = select(ObjetDB)
+        objet_dbs = self.session.exec(statement).all()
+        if objet_dbs:
+            return [ObjetDB.model_validate(objet) for objet in objet_dbs]
+        return None
 
-   def update(self, objet: dict) -> None:
-        objet_db = self.session.query(ObjetDB).get(objet.id)
+    def update(self, objet: dict) -> None:
+        statement= select(ObjetDB).where(ObjetDB.o_id==objet["o_id"])
+        objet_db = self.session.exec(statement).first()
         if objet_db:
-            # FIXME : Contrôler la bonne exécution de l'update !
             ObjetDB(**objet.model_dump())
             self.session.commit()
 
-    def delete(self, objet_id: ObjetDB.c_id) -> None:
-        objet_db = self.session.query(ObjetDB).get(objet_id)
+    def delete(self, objet_id: int) -> None:
+        statement= select(ObjetDB).where(ObjetDB.o_id == objet_id)
+        objet_db = self.session.exec(statement).first()
         if objet_db:
             self.session.delete(objet_db)
             self.session.commit()
