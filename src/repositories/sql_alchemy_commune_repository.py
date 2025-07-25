@@ -6,7 +6,7 @@ from ..models.db_models.commune_db import CommuneDB
 from ..repositories.abstract_repository import AbstractRepository
 
 
-class CommuneRepository(AbstractRepository):
+class SQLAlchemyCommuneRepository(AbstractRepository):
     def __init__(self, session: Session):
         self.session = session
 
