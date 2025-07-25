@@ -26,8 +26,8 @@ class ClientService:
     def get_client_by_name(self, name: str) -> ClientDB:
         pass
 
-    def get_clients(self, session: Session) -> list[ClientDB]:
-        return self.repository.get_all(session)
+    def get_clients(self) -> list[ClientDB]:
+        return self.repository.get_all()
 
     def update_client(self, c_id: int | None = None) -> ClientDB:
         pass
