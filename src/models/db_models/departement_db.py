@@ -1,5 +1,4 @@
 from typing import List
-
 from sqlmodel import Field, Relationship
 
 from ..bases.commune import Commune

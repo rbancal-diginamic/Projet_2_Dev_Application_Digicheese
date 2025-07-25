@@ -5,21 +5,21 @@ from sqlmodel import SQLModel
 
 class AbstractRepository(ABC):
     @abstractmethod
-    def add(self, objet: dict) -> None:
+    def add(self, objet: SQLModel) -> SQLModel:
         pass
 
     @abstractmethod
-    def get_by_id(self, id: int) -> Optional[SQLModel]:
+    def get_by_id(self, id: int) -> SQLModel | None:
         pass
 
     @abstractmethod
-    def get_all(self) -> List[SQLModel] | None:
+    def get_all(self) -> List[SQLModel]:
         pass
 
     @abstractmethod
-    def update(self, objet: dict) -> None:
+    def update(self, id: int, objet: SQLModel) -> SQLModel | None:
         pass
 
     @abstractmethod
-    def delete(self, id: int) -> None:
+    def delete(self, id: int) -> bool:
         pass

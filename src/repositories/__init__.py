@@ -1,0 +1,3 @@
+from .sql_alchemy_client_repository import SQLAlchemyClientRepository as ClientRepository
+from .sql_alchemy_departement_repository import SQLAlchemyDepartementRepository as DepartementRepository
+from .sql_alchemy_commune_repository import SQLAlchemyCommuneRepository as CommuneRepository
