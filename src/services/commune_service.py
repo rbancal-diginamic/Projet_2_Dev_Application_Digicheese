@@ -8,8 +8,8 @@ class CommuneService:
     def __init__(self, session: Session):
         self.repository = SQLAlchemyCommuneRepository(session)
 
-    def get_commune_by_id(self, commmune_id: int | None = None) -> CommuneDB:
+    def get_commune_by_id(self, commmune_id: int | None = None) -> CommuneDB | None:
         return self.repository.get_by_id(commmune_id)
 
-    def get_communes(self):
+    def get_communes(self) -> list[CommuneDB]:
         return self.repository.get_all()

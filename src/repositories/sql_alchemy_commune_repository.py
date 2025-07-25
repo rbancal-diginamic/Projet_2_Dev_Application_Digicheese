@@ -1,5 +1,4 @@
-from typing import Optional, List
-
+from typing import List
 from sqlmodel import Session, select
 
 from ..models.db_models.commune_db import CommuneDB
@@ -11,36 +10,24 @@ class SQLAlchemyCommuneRepository(AbstractRepository):
         self.session = session
 
     def add(self, commune: dict) -> CommuneDB:
-        commune_db = CommuneDB(**commune)
-        self.session.add(commune_db)
-        self.session.commit()
-        return commune_db
+        pass
 
-    def get_by_id(self, commune_id: int) -> Optional[CommuneDB]:
-        statement = select(CommuneDB).where(CommuneDB.c_id == commune_id)
+    def get_by_id(self, commune_id: int | None = None) -> CommuneDB | None:
+        statement = select(CommuneDB)
+        statement.where(CommuneDB.c_id == commune_id)
+
         commune_db = self.session.exec(statement).first()
         if commune_db:
             return commune_db
         return None
 
-    def get_all(self) -> List[CommuneDB] | None:
+    def get_all(self) -> List[CommuneDB]:
         statement = select(CommuneDB)
-        commune_dbs = self.session.exec(statement).all()
-        if commune_dbs:
-            return [CommuneDB.model_validate(commune) for commune in commune_dbs]
-        return None
+        communes_db = self.session.exec(statement).all()
+        return [CommuneDB.model_validate(commune) for commune in communes_db]
 
-    def update(self, commune: dict) -> None:
-        statement = select(CommuneDB).where(CommuneDB.c_id == commune["c_id"])
-        commune_db = self.session.exec(statement).first()
-        if commune_db:
-            CommuneDB(**commune.model_dump())
-            self.session.commit()
+    def update(self, commune_id: int, commune_body: dict) -> CommuneDB | None:
+        pass
 
-    def delete(self, commune_id: int) -> None:
-        statement = select(CommuneDB).where(CommuneDB.c_id == commune_id)
-        commune_db = self.session.exec(statement).first()
-        if commune_db:
-            self.session.delete(commune_db)
-            self.session.commit()
-            
+    def delete(self, commune_id: int | None = None) -> bool:
+        pass
