@@ -1,11 +1,11 @@
 from typing import List
 from sqlmodel import Field, Relationship
 
-from ..bases.commune import Commune
-from ..bases.departement import Departement
+from .commune_db import CommuneDB
+from ..bases.departement import DepartementBase
 
 
-class DepartementDB(Departement, table=True):
+class DepartementDB(DepartementBase, table=True):
     __tablename__ = "d_departement"
     d_id: int | None = Field(default=None, primary_key=True)
-    d_communes: List["Commune"] = Relationship(back_populates="departement")
+    d_communes: List["CommuneDB"] = Relationship(back_populates="departement")

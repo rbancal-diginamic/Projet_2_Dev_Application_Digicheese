@@ -8,7 +8,7 @@ class DepartementService:
     def __init__(self, session: Session):
         self.repository = SQLAlchemyDepartementRepository(session)
 
-    def get_departement_by_id(self, departement_id: int | None = None) -> DepartementDB:
+    def get_departement_by_id(self, departement_id: int | None = None) -> DepartementDB | None:
         return self.repository.get_by_id(departement_id)
 
     def get_departements(self) -> list[DepartementDB]:
