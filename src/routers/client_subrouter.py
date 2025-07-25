@@ -7,7 +7,7 @@ router = APIRouter(prefix="/client", tags=["Clients"])
 
 @router.get("/")
 def get_clients(session: Session = Depends(get_db)):
-    return ClientService(session).get_clients(session)
+    return ClientService(session).get_clients()
 
 @router.get("/{id}")
 def get_client_by_id(id: int, session: Session = Depends(get_db)):
