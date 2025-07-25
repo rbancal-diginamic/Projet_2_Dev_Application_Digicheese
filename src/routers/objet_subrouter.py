@@ -1,24 +1,27 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from sqlmodel import Session
+from ..database import get_db
+from ..services.objet_service import ObjetService
 
-router = APIRouter(prefix="/client", tags=["Clients"])
+router = APIRouter(prefix="/objet", tags=["Objet"])
 
-@router.get("/client")
-def get_clients():
+@router.get("/")
+def get_objets(session: Session = Depends(get_db)):
+    return ObjetService(session).get_objets()
+
+@router.get("/{id}")
+def get_objet_by_id(id: int, session: Session = Depends(get_db)):
     pass
 
-@router.get("/client/{id}")
-def get_clients_by_id(id : int):
+
+@router.post("/")
+def create_objet(body: dict, session: Session = Depends(get_db)):
     pass
 
-
-@router.post("/client")
-def create_client(client: dict):
+@router.patch("/{id}")
+def patch_objet(id: int, body: dict, session: Session = Depends(get_db)):
     pass
 
-@router.patch("/client/{id}")
-def patch_client(id : int):
-    pass
-
-@router.delete("/client/{id}")
-def delete_cleint(id : int):
+@router.delete("/{id}")
+def delete_objet(id: int, session: Session = Depends(get_db)):
     pass
