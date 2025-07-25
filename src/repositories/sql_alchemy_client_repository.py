@@ -16,7 +16,7 @@ class SQLAlchemyClientRepository(AbstractRepository):
         self.session.refresh(client_db)
         return client_db
 
-    def get_by_id(self, client_id: ClientDB.c_id) -> ClientDB | None:
+    def get_by_id(self, client_id: int | None = None) -> ClientDB | None:
         statement = select(ClientDB)
         statement.where(ClientDB.c_id == client_id)
 
@@ -25,7 +25,7 @@ class SQLAlchemyClientRepository(AbstractRepository):
             return client_db
         return None
 
-    def get_by_name(self, client_nom: ClientDB.c_nom) -> ClientDB | None:
+    def get_by_name(self, client_nom: str | None = None) -> ClientDB | None:
         statement = select(ClientDB)
         statement.where(ClientDB.c_nom == client_nom)
 
@@ -52,7 +52,7 @@ class SQLAlchemyClientRepository(AbstractRepository):
             return client_db
         return None
 
-    def delete(self, client_id: ClientDB.c_id) -> bool:
+    def delete(self, client_id: int | None = None) -> bool:
         statement = select(ClientDB)
         statement.where(ClientDB.c_id == client_id)
 

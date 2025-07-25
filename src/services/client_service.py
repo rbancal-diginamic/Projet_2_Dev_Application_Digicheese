@@ -20,8 +20,8 @@ class ClientService:
         client = self.__traitement(client)
         return self.repository.add(client)
 
-    def get_client_by_id(self, c_id: int | None = None) -> ClientDB | None:
-        return self.repository.get_by_id(c_id)
+    def get_client_by_id(self, client_id: int | None = None) -> ClientDB | None:
+        return self.repository.get_by_id(client_id)
 
     def get_client_by_name(self, name: str) -> ClientDB | None:
         return self.repository.get_by_name(name)
