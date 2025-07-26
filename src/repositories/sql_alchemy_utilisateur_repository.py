@@ -56,7 +56,7 @@ class SQLAlchemyUtilisateurRepository(AbstractRepository):
             for key, value in utilisateur_body.items():
                 setattr(utilisateur_db, key, value)
             self.session.commit()
-            self.session.refresh(client_db)
+            self.session.refresh(utilisateur_db)
             return utilisateur_db
         return None
 
