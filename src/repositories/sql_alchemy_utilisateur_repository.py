@@ -15,6 +15,11 @@ class SQLAlchemyUtilisateurRepository(AbstractRepository):
         self.session.commit()
         return utilisateur_db
 
+    def get_all(self) -> List[UtilisateurDB]:
+        statement = select(UtilisateurDB)
+        utilisateur_db = self.session.exec(statement).all()
+        return [UtilisateurDB.model_validate(u) for u in utilisateur_db]
+
     def get_by_id(self, utilisateur_id: UtilisateurDB.u_id) -> Optional[UtilisateurDB]:
         statement = select(UtilisateurDB)
         statement.where(UtilisateurDB.u_id == utilisateur_id)
@@ -42,22 +47,20 @@ class SQLAlchemyUtilisateurRepository(AbstractRepository):
             return utilisateur_db
         return None
 
-    def get_all(self) -> List[UtilisateurDB]:
+    def update(self, utilisateur_id: int, utilisateur_body: dict) -> UtilisateurDB | None:
         statement = select(UtilisateurDB)
-        utilisateur_db = self.session.exec(statement).all()
-        return [UtilisateurDB.model_validate(u) for u in utilisateur_db]
-
-    def update(self, utilisateur: dict) -> None:
-        statement = select(UtilisateurDB)
-        statement.where(UtilisateurDB.u_id == utilisateur["id"])
+        statement.where(UtilisateurDB.u_id == utilisateur_id)
 
         utilisateur_db = self.session.exec(statement).first()
         if utilisateur_db:
-            # FIXME : Contrôler la bonne exécution de l'update !
-            UtilisateurDB(**utilisateur)
+            for key, value in utilisateur_body.items():
+                setattr(utilisateur_db, key, value)
             self.session.commit()
+            self.session.refresh(client_db)
+            return utilisateur_db
+        return None
 
-    def delete(self, utilisateur_id: UtilisateurDB.u_id) -> None:
+    def delete(self, utilisateur_id: UtilisateurDB.u_id) -> bool:
         statement = select(UtilisateurDB)
         statement.where(UtilisateurDB.u_id == utilisateur_id)
 
@@ -65,3 +68,5 @@ class SQLAlchemyUtilisateurRepository(AbstractRepository):
         if utilisateur_db:
             self.session.delete(utilisateur_db)
             self.session.commit()
+            return True
+        return False
