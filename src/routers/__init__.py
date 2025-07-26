@@ -7,8 +7,8 @@ from .commune_subrouter import router as commune_router
 
 
 global_router = APIRouter()
-global_router.include_router(client_router, tags=["client"])
-global_router.include_router(objet_router, tags=["object"])
-global_router.include_router(objet_router, tags=["commande"])
-global_router.include_router(departement_router, tags=["departement"])
-global_router.include_router(commune_router, tags=["commune"])
+global_router.include_router(client_router)
+global_router.include_router(objet_router)
+global_router.include_router(commande_router)
+global_router.include_router(departement_router)
+global_router.include_router(commune_router)

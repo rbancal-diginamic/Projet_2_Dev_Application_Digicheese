@@ -2,8 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.responses import JSONResponse
 from sqlmodel import Session
 
-from models.schemas.commandes.commande_patch import CommandePatch
-from models.schemas.commandes.commande_post import CommandePost
+from ..models.schemas.commande.commande_patch import CommandePatch
+from ..models.schemas.commande.commande_post import CommandePost
 from ..database import get_db
 from ..services.commande_service import CommandeService
 

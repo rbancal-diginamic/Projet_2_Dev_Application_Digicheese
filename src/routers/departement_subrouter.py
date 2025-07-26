@@ -9,7 +9,7 @@ router = APIRouter(prefix="/departement", tags=["Departements"])
 
 
 @router.get("/{id}")
-async def get_departement_by_id(id: int, session: Session = Depends(get_db())):
+async def get_departement_by_id(id: int, session: Session = Depends(get_db)):
     departement = DepartementService(session).get_departement_by_id(id)
     if not departement:
         return HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Département non trouvé")

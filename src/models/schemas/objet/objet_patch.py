@@ -1,5 +1,5 @@
 from sqlmodel import Field
-from ...bases.objet import objetBase
+from ...bases.objet import ObjetBase
 
 
 class ObjetPatch(ObjetBase):

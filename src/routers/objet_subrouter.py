@@ -2,13 +2,12 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.responses import JSONResponse
 from sqlmodel import Session
 
-from models.schemas.objets.objet_patch import ObjetPatch
-from models.schemas.objets.objet_post import ObjetPost
-
+from ..models.schemas.objet.objet_patch import ObjetPatch
+from ..models.schemas.objet.objet_post import ObjetPost
 from ..database import get_db
 from ..services.objet_service import ObjetService
 
-router = APIRouter(prefix="/objet", tags=["Objet"])
+router = APIRouter(prefix="/objet", tags=["Objets"])
 
 @router.get("/")
 async def get_objets(session: Session = Depends(get_db)):

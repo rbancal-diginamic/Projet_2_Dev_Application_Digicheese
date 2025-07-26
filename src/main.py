@@ -19,7 +19,13 @@ from .database import engine
 #     RoleUtilisateur
 # )
 
-from .models import client_db
+from .models import (
+    departement_db,
+    commune_db,
+    client_db,
+    commande_db,
+    objet_db
+)
 
 from .routers import global_router
 

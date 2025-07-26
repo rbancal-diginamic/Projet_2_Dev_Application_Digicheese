@@ -2,8 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.responses import JSONResponse
 from sqlmodel import Session
 
-from models.schemas.clients.client_patch import ClientPatch
-from models.schemas.clients.client_post import ClientPost
+from ..models.schemas.clients.client_patch import ClientPatch
+from ..models.schemas.clients.client_post import ClientPost
 from ..database import get_db
 from ..services.client_service import ClientService
 

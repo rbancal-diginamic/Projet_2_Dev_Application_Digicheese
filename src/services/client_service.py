@@ -1,6 +1,6 @@
 from sqlmodel import Session
 
-from models.schemas.clients.client_patch import ClientPatch
+from ..models.schemas.clients.client_patch import ClientPatch
 from ..models.db_models.client_db import ClientDB
 from ..models.schemas.clients.client_post import ClientPost
 from ..repositories.sql_alchemy_client_repository import SQLAlchemyClientRepository
