@@ -8,3 +8,5 @@ from .schemas.objet import objet_patch, objet_post
 from .schemas.commande import commande_patch, commande_post
 from .schemas.role import role_patch, role_post
 from .schemas.utilisateur import utilisateur_patch, utilisateur_post
+from .schemas.conditionnement import conditionnement_patch, conditionnement_post
+from .schemas.objetcond import objetcond_patch, objetcond_post
