@@ -29,23 +29,23 @@ class SQLAlchemyRoleUtilisateurRepository(AbstractRepository):
             return roleutilisateur_db
         return None
 
-    def get_by_name(self, utilisateur_nom: RoleUtilisateurDB.r_nom) -> Optional[RoleUtilisateurDB]:
-        statement = select(RoleUtilisateurDB)
-        statement.where(RoleUtilisateurDB.r_nom == utilisateur_nom)
+    # def get_by_name(self, utilisateur_nom: RoleUtilisateurDB.r_nom) -> Optional[RoleUtilisateurDB]:
+    #     statement = select(RoleUtilisateurDB)
+    #     statement.where(RoleUtilisateurDB.r_nom == utilisateur_nom)
 
-        roleutilisateur_db = self.session.exec(statement).first()
-        if roleutilisateur_db:
-            return roleutilisateur_db
-        return None
+    #     roleutilisateur_db = self.session.exec(statement).first()
+    #     if roleutilisateur_db:
+    #         return roleutilisateur_db
+    #     return None
 
-    def get_by_username(self, utilisateur_username: RoleUtilisateurDB.r_username) -> Optional[RoleUtilisateurDB]:
-        statement = select(RoleUtilisateurDB)
-        statement.where(RoleUtilisateurDB.r_username == utilisateur_username)
+    # def get_by_username(self, utilisateur_username: RoleUtilisateurDB.r_username) -> Optional[RoleUtilisateurDB]:
+    #     statement = select(RoleUtilisateurDB)
+    #     statement.where(RoleUtilisateurDB.r_username == utilisateur_username)
 
-        roleutilisateur_db = self.session.exec(statement).first()
-        if roleutilisateur_db:
-            return roleutilisateur_db
-        return None
+    #     roleutilisateur_db = self.session.exec(statement).first()
+    #     if roleutilisateur_db:
+    #         return roleutilisateur_db
+    #     return None
 
     def update(self, roleutilisateur_id: int, roleutilisateur_body: dict) -> RoleUtilisateurDB | None:
         statement = select(RoleUtilisateurDB)
