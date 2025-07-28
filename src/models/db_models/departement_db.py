@@ -8,5 +8,6 @@ if TYPE_CHECKING:
 
 class DepartementDB(DepartementBase, table=True):
     __tablename__ = "d_departement"
+    __table_args__ = {"extend_existing": True}
     d_id: int | None = Field(default=None, primary_key=True)
     d_communes: List["CommuneDB"] = Relationship(back_populates="c_departement")

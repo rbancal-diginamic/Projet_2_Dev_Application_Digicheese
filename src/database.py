@@ -2,7 +2,6 @@ import os
 from sqlmodel import create_engine, Session, SQLModel
 from dotenv import load_dotenv
 
-
 load_dotenv()
 
 # Configuration de la base de données
@@ -21,6 +20,7 @@ DATABASE_URL = f"{DB_CONFIG['connector']}://{DB_CONFIG['username']}:{DB_CONFIG['
 # Moteur de base de données
 engine = create_engine(DATABASE_URL, echo=False)
 
+
 # déclaration d'une base qui permet après de créer un modèle et de mapper avec SqlModel
 def get_db():
     """
@@ -32,6 +32,6 @@ def get_db():
         yield db
     finally:
         db.close()
-        
+
 # Il est possible de créer des fonctions utilitaires pour supprimer et recréer la base de données
 # Attention à ne pas essayer de se connecter à la base de données pendant cette opération (DATABASE_URL)

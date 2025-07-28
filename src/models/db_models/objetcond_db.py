@@ -1,7 +1,7 @@
-from sqlmodel import Field
-from ..bases.objetcond import ObjetCondBase
+from sqlmodel import Field, SQLModel
 
-class ObjetCondDB(ObjetCondBase, table=True):
+
+class ObjetCondDB(SQLModel, table=True):
     """Table représentant la relation entre les objets et les conditionnements."""
     
     __tablename__ = "d_rel_cond"

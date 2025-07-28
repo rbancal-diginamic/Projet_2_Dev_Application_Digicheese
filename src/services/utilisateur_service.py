@@ -1,9 +1,9 @@
 from sqlmodel import Session
 
-from src.models.schemas.utilisateur.utilisateur_patch import UtilisateurPatch
+from src.models.schemas.utilisateurs.utilisateur_patch import UtilisateurPatch
 
 from ..models.db_models.utilisateur_db import UtilisateurDB
-from ..models.schemas.utilisateur.utilisateur_post import UtilisateurPost
+from ..models.schemas.utilisateurs.utilisateur_post import UtilisateurPost
 from ..repositories.sql_alchemy_utilisateur_repository import SQLAlchemyUtilisateurRepository
 
 

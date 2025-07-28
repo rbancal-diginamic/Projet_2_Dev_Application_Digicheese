@@ -1,8 +1,8 @@
 from sqlmodel import Session
 
-from src.models.schemas.conditionnement.conditionnement_patch import ConditionnementPatch
+from src.models.schemas.conditionnements.conditionnement_patch import ConditionnementPatch
 from ..models.db_models.conditionnement_db import ConditionnementDB
-from ..models.schemas.conditionnement.conditionnement_post import ConditionnementPost
+from ..models.schemas.conditionnements.conditionnement_post import ConditionnementPost
 from ..repositories.sql_alchemy_conditionnement_repository import SQLAlchemyConditionnementRepository
 
 
