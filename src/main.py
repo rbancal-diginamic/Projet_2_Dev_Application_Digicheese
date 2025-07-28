@@ -27,16 +27,16 @@ from .models import (
     CommandeDB,
     ObjetDB,
     RoleDB,
-    UtilisateurDB,
-    ObjetCondDB,
-    RoleUtilisateurDB
+    UtilisateurDB
 )
 
 from .routers import global_router
 
 app = FastAPI()
-app.include_router(global_router)
+# FIXME : Supprimer la 1ere ligne pour la PROD
+SQLModel.metadata.drop_all(bind=engine)
 SQLModel.metadata.create_all(bind=engine)
+app.include_router(global_router)
 
 
 @app.get("/")

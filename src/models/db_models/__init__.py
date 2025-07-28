@@ -4,7 +4,5 @@ from .commune_db import CommuneDB
 from .conditionnement_db import ConditionnementDB
 from .departement_db import DepartementDB
 from .objet_db import ObjetDB
-from .objetcond_db import ObjetCondDB
 from .role_db import RoleDB
-from .roleutilisateur_db import RoleUtilisateurDB
 from .utilisateur_db import UtilisateurDB
