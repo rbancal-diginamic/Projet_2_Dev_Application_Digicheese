@@ -1,0 +1,2 @@
+from .departement_patch import DepartementPatch
+from .departement_post import DepartementPost

@@ -1,8 +1,8 @@
 from sqlmodel import Session
 
-from src.models.schemas.commande.commande_patch import CommandePatch
+from src.models.schemas.commandes.commande_patch import CommandePatch
 from ..models.db_models.commande_db import CommandeDB
-from ..models.schemas.commande.commande_post import CommandePost
+from ..models.schemas.commandes.commande_post import CommandePost
 from ..repositories.sql_alchemy_commande_repository import SQLAlchemyCommandeRepository
 
 

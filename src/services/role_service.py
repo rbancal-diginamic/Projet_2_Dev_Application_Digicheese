@@ -1,7 +1,7 @@
 from sqlmodel import Session
 
 from ..models.db_models.role_db import RoleDB
-from ..models.schemas.role.role_post import RolePost
+from ..models.schemas.roles.role_post import RolePost
 from ..repositories.sql_alchemy_role_repository import SQLAlchemyRoleRepository
 
 

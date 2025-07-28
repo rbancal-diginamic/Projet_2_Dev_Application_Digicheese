@@ -1,4 +1,4 @@
-from models.bases.commune import CommuneBase
+from ...bases.commune import CommuneBase
 
 
 class CommunePost(CommuneBase):

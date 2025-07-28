@@ -1,8 +1,8 @@
 from sqlmodel import Session
 
-from src.models.schemas.objet.objet_patch import ObjetPatch
+from src.models.schemas.objets.objet_patch import ObjetPatch
 from ..models.db_models.objet_db import ObjetDB
-from ..models.schemas.objet.objet_post import ObjetPost
+from ..models.schemas.objets.objet_post import ObjetPost
 from ..repositories.sql_alchemy_objet_repository import SQLAlchemyObjetRepository
 
 

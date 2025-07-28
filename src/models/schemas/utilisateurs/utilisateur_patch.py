@@ -1,4 +1,3 @@
-from sqlmodel import Field
 from ...bases.utilisateur import UtilisateurBase
 
 

@@ -1,7 +1,8 @@
-from sqlmodel import Field
-from ..bases.roleutilisateur import RoleUtilisateurBase
+from sqlmodel import Field, SQLModel
 
 
-class RoleUtilisateurDB(RoleUtilisateurBase, table=True):
+class RoleUtilisateurDB(SQLModel, table=True):
     __tablename__ = "d_utilisateur_role"
-    r_id: int | None = Field(default=None, primary_key=True)
+
+    r_utilisateur_id: int | None = Field(default=None, foreign_key="d_utilisateur.u_id", primary_key=True)
+    r_role_id: int | None = Field(default=None, foreign_key="d_role.r_id", primary_key=True)

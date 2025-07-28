@@ -1,5 +1,4 @@
 from datetime import date
-from sqlalchemy import Column, String
 from sqlmodel import SQLModel, Field
 
 
