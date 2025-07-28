@@ -10,15 +10,15 @@ class ClientService:
     def __init__(self, session: Session):
         self.repository = SQLAlchemyClientRepository(session)
 
-    def __traitement(self, client: dict) -> dict:
+    def __traitement(self, client: ClientPost | ClientPatch) -> dict:
+        client = client.model_dump()
         client['c_nom'] = client["c_nom"].upper()
         client['c_prenom'] = client["c_prenom"].capitalize()
         return client
 
     def create_client(self, client_body: ClientPost) -> ClientDB:
-        client = client_body.model_dump()
-        client = self.__traitement(client)
-        return self.repository.add(client)
+        client = self.__traitement(client_body)
+        return self.repository.add(client=client)
 
     def get_client_by_id(self, client_id: int | None = None) -> ClientDB | None:
         return self.repository.get_by_id(client_id)

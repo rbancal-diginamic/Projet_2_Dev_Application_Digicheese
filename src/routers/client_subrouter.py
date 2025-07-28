@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.responses import JSONResponse
 from sqlmodel import Session
 
+from ..models import ClientDB
 from ..models.schemas.clients.client_patch import ClientPatch
 from ..models.schemas.clients.client_post import ClientPost
 from ..database import get_db
@@ -23,10 +24,10 @@ async def get_clients(session: Session = Depends(get_db)):
     clients = ClientService(session).get_clients()
     if not clients:
         return HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=[])
-    return JSONResponse(status_code=status.HTTP_200_OK, content=clients)
+    return JSONResponse(status_code=status.HTTP_200_OK, content=[client.model_dump() for client in clients])
 
 
-@router.post("/")
+@router.post("/", status_code=201)
 async def create_client(body: ClientPost, session: Session = Depends(get_db)):
     try:
         client_post = ClientPost.model_validate(body)
@@ -34,7 +35,7 @@ async def create_client(body: ClientPost, session: Session = Depends(get_db)):
         if not client:
             return HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Le client n'a pas été créé")
         return JSONResponse(status_code=status.HTTP_201_CREATED, content=client)
-    except Exception(BaseException):
+    except Exception:
         return HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
 

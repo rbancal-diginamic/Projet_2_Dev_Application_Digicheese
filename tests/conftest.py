@@ -30,10 +30,10 @@ def test_db():
     SQLModel.metadata.create_all(engine)
     
     with Session(engine) as session:
-        john_doe = ClientDB(prenom="John", nom="Doe", adresse_1="123 Cheese St")
+        john_doe = ClientDB(c_prenom="John", c_nom="Doe", c_adresse_1="123 Cheese St")
         session.add(john_doe)
         session.commit()
-        
+
         # Retourne la session de test
         yield session
 
