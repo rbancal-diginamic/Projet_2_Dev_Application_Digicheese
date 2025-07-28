@@ -1,7 +1,7 @@
 from sqlmodel import Field
 from ...bases.objetcond import ObjetCondBase
 
-class ObjetCondDBPatch(ObjetCondBase):
+class ObjetCondPatch(ObjetCondBase):
    
    
     o_quantite_objet_debut: int = Field(default=0)

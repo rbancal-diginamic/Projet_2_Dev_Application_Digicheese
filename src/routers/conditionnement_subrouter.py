@@ -2,8 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.responses import JSONResponse
 from sqlmodel import Session
 
-from ..models.schemas.conditionnements.conditionnement_patch import ConditionnementPatch
-from ..models.schemas.conditionnements.conditionnement_post import ConditionnementPost
+from ..models.schemas.conditionnement.conditionnement_patch import ConditionnementPatch
+from ..models.schemas.conditionnement.conditionnement_post import ConditionnementPost
 from ..database import get_db
 from ..services.conditionnement_service import ConditionnementService
 

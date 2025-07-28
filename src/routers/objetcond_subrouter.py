@@ -2,8 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.responses import JSONResponse
 from sqlmodel import Session
 
-from ..models.schemas.objetconds.objetcond_patch import ObjetCondPatch
-from ..models.schemas.objetconds.objetcond_post import ObjetCondPost
+from ..models.schemas.objetcond.objetcond_patch import ObjetCondPatch
+from ..models.schemas.objetcond.objetcond_post import ObjetCondPost
 from ..database import get_db
 from ..services.objetcond_service import ObjetCondService
 

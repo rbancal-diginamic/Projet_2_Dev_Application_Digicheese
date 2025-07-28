@@ -4,7 +4,7 @@ from ..bases.objetcond import ObjetCondBase
 class ObjetCondDB(ObjetCondBase, table=True):
     """Table représentant la relation entre les objets et les conditionnements."""
     
-    __tablename__ = "t_rel_cond"
+    __tablename__ = "d_rel_cond"
     
     o_id: int | None = Field(default=None, primary_key=True, index=True)
     # FIXME : Décommenter après avoir créer les autres tables !

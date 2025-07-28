@@ -2,10 +2,9 @@ from sqlalchemy import Column, String
 from sqlmodel import SQLModel, Field
 
 
-class ObjetCond(SQLModel, table=True):
+class ObjetCondBase(SQLModel):
     """Table représentant la relation entre les objets et les conditionnements."""
 
-    #o_idrelcond: int | None = Field(default=None, primary_key=True, index=True)
     o_quantite_objet_debut: int = Field(default=0)
     o_quantite_objet_fin: int = Field(default=0)
     #o_codobj: int | None = Field(default=None, foreign_key="t_objet.codobj", nullable=True)

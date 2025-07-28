@@ -3,7 +3,7 @@ from decimal import Decimal
 from sqlalchemy import Column, String
 from sqlmodel import SQLModel, Field
 
-class Conditionnement(SQLModel):
+class ConditionnementBase(SQLModel):
     """Table représentant les conditionnements disponibles pour les objets."""
 
     c_libelle: str | None = Field(default=None, max_length=50, nullable=True)
