@@ -1,5 +1,7 @@
 from sqlmodel import Session
 
+from src.models.schemas.utilisateur.utilisateur_patch import UtilisateurPatch
+
 from ..models.db_models.utilisateur_db import UtilisateurDB
 from ..models.schemas.utilisateur.utilisateur_post import UtilisateurPost
 from ..repositories.sql_alchemy_utilisateur_repository import SQLAlchemyUtilisateurRepository
@@ -32,12 +34,9 @@ class UtilisateurService:
     def get_utilisateur_by_username(self, username: str) -> UtilisateurDB:
         return self.repository.get_by_username(username)
 
-    def update_utilisateur(self, u_id: int | None = None) -> UtilisateurDB:
-        utilisateur = self.repository.get_by_id(u_id)
-        if utilisateur:
-            self.repository.update(utilisateur)
-            return True
-        return False
+    def update_utilisateur(self, u_id: int, utilisateur_body: UtilisateurPatch) -> UtilisateurDB | None:
+        utilisateur = utilisateur_body.model_dump()
+        return self.repository.update(u_id, utilisateur)
 
     def delete_utilisateur(self, u_id: int | None = None) -> bool:
         utilisateur = self.repository.get_by_id(u_id)

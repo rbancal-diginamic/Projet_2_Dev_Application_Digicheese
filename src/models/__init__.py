@@ -1,6 +1,5 @@
-from .bases import departement, commune, client, commande, objet, conditionnement, objetcond, role, utilisateur
-from .db_models import departement_db, commune_db, objet_db, commande_db, client_db, role_db, utilisateur_db, conditionnement_db, objetcond_db
-
+from .bases import departement, commune, client, commande, objet, conditionnement, objetcond, role, utilisateur, roleutilisateur
+from .db_models import departement_db, commune_db, objet_db, commande_db, client_db, role_db, utilisateur_db, conditionnement_db, objetcond_db, roleutilisateur_db
 from .schemas.clients import client_patch, client_post
 from .schemas.objet import objet_patch, objet_post
 from .schemas.commande import commande_patch, commande_post
