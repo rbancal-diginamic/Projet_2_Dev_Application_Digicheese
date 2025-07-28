@@ -23,10 +23,12 @@ from .models import (
     departement_db,
     commune_db,
     client_db,
+    conditionnement_db,
     commande_db,
     objet_db,
     role_db,
-    utilisateur_db
+    utilisateur_db,
+    objetcond_db
 )
 
 from .routers import global_router
