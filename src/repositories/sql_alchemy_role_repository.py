@@ -31,3 +31,34 @@ class SQLAlchemyRoleRepository(AbstractRepository):
         statement = select(RoleDB)
         role_db = self.session.exec(statement).all()
         return [RoleDB.model_validate(r) for r in role_db]
+
+    def add(self, role: dict) -> RoleDB:
+        role_db = RoleDB(**role)
+        self.session.add(role_db)
+        self.session.commit()
+        self.session.refresh(role_db)
+        return role_db
+    
+    def update(self, role_id: int, role_body: dict) -> RoleDB | None:
+        statement = select(RoleDB)
+        statement.where(RoleDB.r_id == role_id)
+
+        role_db = self.session.exec(statement).first()
+        if role_db:
+            for key, value in role_body.items():
+                setattr(role_db, key, value)
+            self.session.commit()
+            self.session.refresh(role_db)
+            return role_db
+        return None
+
+    def delete(self, role_id: int | None = None) -> bool:
+        statement = select(RoleDB)
+        statement.where(RoleDB.r_id == role_id)
+
+        role_db = self.session.exec(statement).first()
+        if role_db:
+            self.session.delete(role_db)
+            self.session.commit()
+            return True
+        return False
