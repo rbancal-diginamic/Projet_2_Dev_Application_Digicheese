@@ -35,8 +35,9 @@ from .models import (
 from .routers import global_router
 
 app = FastAPI()
-app.include_router(global_router)
 SQLModel.metadata.create_all(bind=engine)
+app.include_router(global_router)
+
 
 
 @app.get("/")

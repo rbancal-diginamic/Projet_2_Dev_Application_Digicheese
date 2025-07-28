@@ -1,29 +1,35 @@
-from fastapi.testcommande import TestCommande
-from models.schemas.commandes.commande_post import CommandePost
+from fastapi.testclient import TestClient
+from src.models.schemas.commandes import commande_post
 
 
-def test_get_all_commandes(commande: TestCommande):
+def test_get_all_commandes(commande: TestClient):
     '''Test de la récupération de toutes les commandes'''
     response = commande.get("/commande/")
     assert response.json()['detail'] == []
     assert response.status_code == 200
 
-def test_get_commande_by_id(id: TestCommande, commande : TestCommande):
+def test_get_commande_by_id(id: TestClient, commande : TestClient):
     '''Test de la récupération d'une commande via son id'''
     response = commande.get("/commande/{id}")
     assert response.json()['detail'] == []
     assert response.status_code == 200
 
-def test_create_commande(commande: TestCommande ):
+def test_create_commande(commande: TestClient ):
     '''Test de la création de la commande'''
-    new_commande = CommandePost({
-        "c_datcdee": "2025-03-01",
-        "c_timbre_client": "2.6",
+    new_commande = commande_post.CommandePost({
+        "date_commande": 2025-3-1,
+        "timbre_client": 2.6,
+        "timbre_commande": 2.6,
+        "nombre_colis": 1,
+        "cheque_client" : 10.00,
+        "commentaire": "je suis le commantaire de la commande, yo",
+        "barchive": 0,
+        "bstock" : 0
         
     })
-    response = commande.post("/commande/")
-    assert response.json()['detail'] == []
-    assert response.status_code == 200
+    response = commande.post("/commande/", new_commande)
+    assert response._content == new_commande.model_dump_json()
+    assert response.status_code == 201
 
 def test_patch_commande():
     pass

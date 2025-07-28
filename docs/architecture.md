@@ -1,9 +1,7 @@
 2025-d04-digicheese/
-|---.venv/
-|   |---                                        #
+|---.venv/                                      # Environnement virtuel de chaque personne
 |
-|---annexes/
-|   |---                                        #
+|---annexes/                                    # Fichiers données SQL
 |
 |---docs/
 |   |--- architecture.md                        #description architecture application
@@ -43,10 +41,12 @@
 |       |---main.py
 |       |---old_models.py
 |
-|   |---tests/
-|       |---__init__.py
-|       |---conftest.py
-|       |---test_"nomtable".py
+|---script/                                    # Emplacement script SQL 
+|
+|---tests/
+|   |---__init__.py
+|   |---conftest.py
+|   |---test_"nomtable".py
 |
 |---.env
 |---.env-template
