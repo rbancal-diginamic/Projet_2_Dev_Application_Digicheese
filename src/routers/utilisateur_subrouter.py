@@ -36,7 +36,7 @@ def get_utilisateur_by_username(username: str, session: Session = Depends(get_db
     return utilisateur
 
 @router.post("/")
-def create_utilisateur(body: dict, session: Session = Depends(get_db)):
+def create_utilisateur(body: UtilisateurPost, session: Session = Depends(get_db)):
     utilisateur_post = UtilisateurPost().from_dict(body)
     utilisateur = UtilisateurService(session).create_utilisateur(utilisateur_post)
     if not utilisateur:
