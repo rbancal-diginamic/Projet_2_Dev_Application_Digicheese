@@ -24,7 +24,9 @@ from .models import (
     commune_db,
     client_db,
     commande_db,
-    objet_db
+    objet_db,
+    role_db,
+    utilisateur_db
 )
 
 from .routers import global_router

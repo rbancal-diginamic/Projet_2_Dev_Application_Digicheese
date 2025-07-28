@@ -14,7 +14,7 @@ router = APIRouter(prefix="/client", tags=["Clients"])
 async def get_client_by_id(id: int, session: Session = Depends(get_db)):
     client = ClientService(session).get_client_by_id(id)
     if not client:
-        return HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Le client n'existe pas")
+        return HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=["Le client n'existe pas"])
     return JSONResponse(status_code=status.HTTP_200_OK, content=client)
 
 
@@ -22,7 +22,7 @@ async def get_client_by_id(id: int, session: Session = Depends(get_db)):
 async def get_clients(session: Session = Depends(get_db)):
     clients = ClientService(session).get_clients()
     if not clients:
-        return HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Aucun client trouvé")
+        return HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=[])
     return JSONResponse(status_code=status.HTTP_200_OK, content=clients)
 
 
