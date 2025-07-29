@@ -14,31 +14,31 @@
 |---src/
 |   |--- models/                                #
 |        |---__init__.py                        #Fichier init ...   
-|        |--- bases/                            #
-|             |---__init__.py                   #
+|        |--- bases/                            #Base pour les schémas et models de l'entité "nomtable"
+|             |---__init__.py                   #Fichier init ...
 |             |---"nomtable".py                 #
-|        |--- db_models/                        #
+|        |--- db_models/                        #Schéma de la table "nomtable" représentée en base de données
 |             |---__init__.py                   #
 |             |---"nomtable"_db.py              #
 |        |--- schemas/                          #
 |             |---__init__.py                   #
 |             |---"nomtable"/                   #
 |                 |---__init__.py               #
-|                 |---"nomtable"_patch.py       #
-|                 |---"nomtable"_post.py        #
+|                 |---"nomtable"_patch.py       #Schéma "nomtable" pour modification en base de données
+|                 |---"nomtable"_post.py        #Schéma "nomtable" pour création en base de données
 |
-|   |--- repositories/                          #Point d'entrée FastAPI
-|        |---__init__.py                        #Point d'entrée FastAPI
+|   |--- repositories/                          #
+|        |---__init__.py                        #Fichier init ...
 |        |---abstract_repository.py             #
 |        |---__init__.py                        #
 |
-|   |--- routers/                               #Point d'entrée FastAPI
+|   |--- routers/                               #
 |        |---__init__.py                        #
-|        |---"nomtable"_subrouteur.py           #
+|        |---"nomtable"_subrouteur.py           #Repository for managing "nomtable"" entities in the database.
 |
 |   |---services/                               #
 |       |---__init__.py                         #
-|       |---"nomtable"_service.py               #
+|       |---"nomtable"_service.py               #Service to do treatments on "nomtable"" entities before commit in database.
 |   |---database.py                             #
 |   |---main.py                                 #
 |   |---old_models.py                           #
@@ -48,7 +48,7 @@
 |---tests/                                      #
 |   |---__init__.py                             #
 |   |---conftest.py                             #
-|   |---test_"nomtable".py                      #
+|   |---test_"nomtable".py                      #Fichier test "nomtable"
 |
 |---.env
 |---.env-template
