@@ -13,14 +13,15 @@ class SQLAlchemyUtilisateurRepository(AbstractRepository):
         utilisateur_db = UtilisateurDB(**utilisateur)
         self.session.add(utilisateur_db)
         self.session.commit()
+        self.session.refresh(utilisateur_db)
         return utilisateur_db
 
     def get_all(self) -> List[UtilisateurDB]:
         statement = select(UtilisateurDB)
         utilisateur_db = self.session.exec(statement).all()
-        return [UtilisateurDB.model_validate(u) for u in utilisateur_db]
+        return [UtilisateurDB.model_validate(utilisateur) for utilisateur in utilisateur_db]
 
-    def get_by_id(self, utilisateur_id: UtilisateurDB.u_id) -> Optional[UtilisateurDB]:
+    def get_by_id(self, utilisateur_id: int | None = None) -> UtilisateurDB | None:
         statement = select(UtilisateurDB).where(UtilisateurDB.u_id == utilisateur_id)
         
         utilisateur_db = self.session.exec(statement).first()
@@ -56,12 +57,12 @@ class SQLAlchemyUtilisateurRepository(AbstractRepository):
             return utilisateur_db
         return None
 
-    def delete(self, utilisateur_id: UtilisateurDB.u_id) -> bool:
+    def delete(self, utilisateur_id: int | None = None) -> bool:
         statement = select(UtilisateurDB).where(UtilisateurDB.u_id == utilisateur_id)
 
         utilisateur_db = self.session.exec(statement).first()
-        if utilisateur_db:
-            self.session.delete(utilisateur_db)
-            self.session.commit()
-            return True
-        return False
+        if not utilisateur_db:
+            return False
+        self.session.delete(utilisateur_db)
+        self.session.commit()
+        return True
