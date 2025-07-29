@@ -51,8 +51,9 @@
 |---.env
 |---.env-template
 |---.gitignore
-|---README.pdf
+|---Projet_Sujet.pdf
 |---requirement.txt
 |---run.py
 |---test_main.http
+|---Readme.md
 |
