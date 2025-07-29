@@ -17,14 +17,14 @@ def test_get_all_commandes(client: TestClient):
 
 def test_post_commande(client: TestClient):
     new_commande = {
-        "c_date_commande": date(2025, 3, 1),
-        "c_timbre_client": 2.6,
+        "c_date_commande": date(2025, 3, 1).isoformat(),
+        "c_timbre_client": float(2.6),
         "c_timbre_commande": 2.6,
-        "c_nombre_colis": 1,
+        #"c_nombre_colis": 1,
         "c_cheque_client" : 10.00,
-        "c_commentaire": "je suis le commantaire de la commande, yo",
-        "c_barchive": 0,
-        "c_bstock" : 0
+        "c_commentaire": "je suis le commantaire de la commande, yo"#,
+        #"c_barchive": 0,
+        #"c_bstock" : 0
     }
     response = client.post("/commande/", json=new_commande)
     print(response)
@@ -36,7 +36,7 @@ def test_post_commande(client: TestClient):
     assert response.status_code == 201
     commande_created = response.json()
 
-    #assert commande_created['c_date_commande'] == new_commande['c_date_commande']
+    assert commande_created['c_date_commande'] == new_commande['c_date_commande']
     assert commande_created['c_timbre_client'] == new_commande['c_timbre_client']
     assert commande_created['c_timbre_commande'] == new_commande['c_timbre_commande']
     assert commande_created['c_nombre_colis'] == new_commande['c_nombre_colis']
