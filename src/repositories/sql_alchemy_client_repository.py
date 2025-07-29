@@ -17,8 +17,7 @@ class SQLAlchemyClientRepository(AbstractRepository):
         return client_db
 
     def get_by_id(self, client_id: int | None = None) -> ClientDB | None:
-        statement = select(ClientDB)
-        statement.where(ClientDB.c_id == client_id)
+        statement = select(ClientDB).where(ClientDB.c_id == client_id)
 
         client_db = self.session.exec(statement).first()
         if client_db:
@@ -26,8 +25,7 @@ class SQLAlchemyClientRepository(AbstractRepository):
         return None
 
     def get_by_name(self, client_nom: str | None = None) -> ClientDB | None:
-        statement = select(ClientDB)
-        statement.where(ClientDB.c_nom == client_nom)
+        statement = select(ClientDB).where(ClientDB.c_nom == client_nom)
 
         client_db = self.session.exec(statement).first()
         if client_db:
@@ -40,8 +38,7 @@ class SQLAlchemyClientRepository(AbstractRepository):
         return [ClientDB.model_validate(client) for client in clients_db]
 
     def update(self, client_id: int, client_body: dict) -> ClientDB | None:
-        statement = select(ClientDB)
-        statement.where(ClientDB.c_id == client_id)
+        statement = select(ClientDB).where(ClientDB.c_id == client_id)
 
         client_db = self.session.exec(statement).first()
         if client_db:
@@ -53,12 +50,11 @@ class SQLAlchemyClientRepository(AbstractRepository):
         return None
 
     def delete(self, client_id: int | None = None) -> bool:
-        statement = select(ClientDB)
-        statement.where(ClientDB.c_id == client_id)
+        statement = select(ClientDB).where(ClientDB.c_id == client_id)
 
         client_db = self.session.exec(statement).first()
-        if client_db:
-            self.session.delete(client_db)
-            self.session.commit()
-            return True
-        return False
+        if not client_db:
+            return False
+        self.session.delete(client_db)
+        self.session.commit()
+        return True

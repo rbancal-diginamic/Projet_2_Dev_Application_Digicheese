@@ -16,7 +16,7 @@ async def get_client_by_id(id: int, session: Session = Depends(get_db)):
     client = ClientService(session).get_client_by_id(id)
     if not client:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=["Le client n'existe pas"])
-    return JSONResponse(status_code=status.HTTP_200_OK, content=client)
+    return JSONResponse(status_code=status.HTTP_200_OK, content=client.model_dump())
 
 
 @router.get("/")
@@ -39,12 +39,9 @@ async def create_client(body: ClientPost, session: Session = Depends(get_db)):
 @router.patch("/{id}")
 async def patch_client(id: int, body: ClientPatch, session: Session = Depends(get_db)):
     try:
-        client_patch = ClientPatch.model_validate(body)
-        client = ClientService(session).update_client(id, client_patch)
-        if not client:
-            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Le client n'existe pas")
-        return JSONResponse(status_code=status.HTTP_200_OK, content=client)
-    except Exception(BaseException):
+        client = ClientService(session).update_client(id, body)
+        return JSONResponse(status_code=status.HTTP_200_OK, content=client.model_dump())
+    except HTTPException:
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
 

@@ -34,7 +34,7 @@ from .routers import global_router
 
 app = FastAPI()
 # FIXME : Supprimer la 1ere ligne pour la PROD
-SQLModel.metadata.drop_all(bind=engine)
+# SQLModel.metadata.drop_all(bind=engine)
 SQLModel.metadata.create_all(bind=engine)
 app.include_router(global_router)
 
