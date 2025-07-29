@@ -1,31 +1,19 @@
-from datetime import date
-import pytest
-from fastapi import Response
+from datetime import datetime
 from fastapi.testclient import TestClient
-
-from src.models.schemas.commandes.commande_post import CommandePost
-
-
-def test_get_all_commandes(client: TestClient):
-    #on parle du client ordi
-    response = client.get("/commande/")
-    assert response.status_code == 200
-    data = response.json()
-    assert isinstance(data, list)
-    assert len(data) > 0
 
 
 def test_post_commande(client: TestClient):
     new_commande = {
-        "c_date_commande": date(2025, 3, 1).isoformat(),
+        "c_date_commande": "2025-07-29T14:32:10.123000",
         "c_timbre_client": float(2.6),
         "c_timbre_commande": 2.6,
-        #"c_nombre_colis": 1,
-        "c_cheque_client" : 10.00,
-        "c_commentaire": "je suis le commantaire de la commande, yo"#,
-        #"c_barchive": 0,
-        #"c_bstock" : 0
+        "c_nombre_colis": 1,
+        "c_cheque_client": 10.00,
+        "c_commentaire": "je suis le commantaire de la commande, yo",
+        "c_barchive": 0,
+        "c_bstock": 0
     }
+    print("HELO HELO HELO", new_commande["c_date_commande"])
     response = client.post("/commande/", json=new_commande)
     print(response)
 
@@ -46,14 +34,42 @@ def test_post_commande(client: TestClient):
     assert commande_created['c_bstock'] == new_commande['c_bstock']
 
 
-        
-
 def test_post_commande_422(client: TestClient):
     new_commande = {
-
+        "c_nombre_colis": "UN",
         "c_commentaire": "Nouveau commentaire ",
-
-     }
+    }
 
     response = client.post("/commande/", json=new_commande)
     assert response.status_code == 422
+
+
+def test_get_commande_by_id(client: TestClient):
+    response = client.get("/commande/1")
+    assert response.status_code == 200
+    commande = response.json()
+
+
+def test_get_all_commandes(client: TestClient):
+    # on parle du client ordi
+    response = client.get("/commande/")
+    assert response.status_code == 200
+    data = response.json()
+    assert isinstance(data, list)
+    assert len(data) > 0
+
+
+def test_patch_commande(client: TestClient):
+    modified_commande = {
+        "c_commentaire": "JSON TATANE !!!",
+    }
+    response = client.patch("/commande/2", json=modified_commande)
+
+    assert response.status_code == 200
+    commande_updated = response.json()
+    assert commande_updated['c_commentaire'] == modified_commande['c_commentaire']
+
+
+def test_delete_commande(client: TestClient):
+    response = client.delete("/commande/1")
+    assert response.status_code == 204
