@@ -30,12 +30,8 @@ class ClientService:
         return self.repository.get_all()
 
     def update_client(self, client_id: int, client_body: ClientPatch) -> ClientDB | None:
-        client = client_body.model_dump()
+        client = client_body.model_dump(exclude_unset=True)
         return self.repository.update(client_id, client)
 
     def delete_client(self, c_id: int | None = None) -> bool:
-        client = self.repository.get_by_id(c_id)
-        if client:
-            self.repository.delete(client)
-            return True
-        return False
+        return self.repository.delete(c_id)

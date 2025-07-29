@@ -1,8 +1,39 @@
-import pytest
-from fastapi import Response
 from fastapi.testclient import TestClient
 
-from src.models.schemas.clients.client_post import ClientPost
+
+def test_post_client(client: TestClient):
+    new_client = {
+        "c_genre": "M",
+        "c_nom": "bancal",
+        "c_prenom": "raphaël"
+    }
+    response = client.post("/client/", json=new_client)
+
+    assert response.status_code == 201
+    client_created = response.json()
+
+    assert client_created['c_genre'] == new_client['c_genre']
+    assert client_created['c_nom'] == new_client['c_nom'].upper()
+    assert client_created['c_prenom'] == new_client['c_prenom'].capitalize()
+
+
+def test_post_client_422(client: TestClient):
+    new_client = {
+        "c_genre": "M",
+        "c_nom": "bancal"
+    }
+
+    response = client.post("/client/", json=new_client)
+    assert response.status_code == 422
+
+
+def test_get_client_by_id(client: TestClient):
+    response = client.get("/client/2")
+    assert response.status_code == 200
+    data = response.json()
+    assert data['c_genre'] == "M"
+    assert data['c_nom'] == "BANCAL"
+    assert data['c_prenom'] == "Raphaël"
 
 
 def test_get_all_clients(client: TestClient):
@@ -13,31 +44,20 @@ def test_get_all_clients(client: TestClient):
     assert len(data) > 0
 
 
-def test_post_client(client: TestClient):
-    new_client = {
-        "c_genre": "M",
-        "c_nom": "bancal",
-        "c_prenom": "raphaël"
+def test_patch_client(client: TestClient):
+    modified_client = {
+        "c_genre": "Mme",
+        "c_prenom": "Frédérique"
     }
-    response = client.post("/client/", json=new_client)
-    print(response)
+    response = client.patch("/client/2", json=modified_client)
 
-    print("Status code:", response.status_code)
-    print("Response JSON:", response.json())
-    print("JE NE COMPRENDS PLUS RIEN !!!")
+    assert response.status_code == 200
+    client_updated = response.json()
 
-    assert response.status_code == 201
-    client_created = response.json()
+    assert client_updated['c_genre'] == modified_client['c_genre']
+    assert client_updated['c_prenom'] == modified_client['c_prenom']
 
-    assert client_created['c_genre'] == new_client['c_genre']
-    assert client_created['c_nom'] == new_client['c_nom'].upper()
-    assert client_created['c_prenom'] == new_client['c_prenom'].capitalize()
 
-def test_post_client_422(client: TestClient):
-    new_client = {
-        "c_genre": "M",
-        "c_nom": "bancal"
-    }
-
-    response = client.post("/client/", json=new_client)
-    assert response.status_code == 422
+def test_delete_client(client: TestClient):
+    response = client.delete("/client/1")
+    assert response.status_code == 200

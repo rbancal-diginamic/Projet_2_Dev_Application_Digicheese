@@ -13,8 +13,7 @@ class SQLAlchemyCommuneRepository(AbstractRepository):
         pass
 
     def get_by_id(self, commune_id: int | None = None) -> CommuneDB | None:
-        statement = select(CommuneDB)
-        statement.where(CommuneDB.c_id == commune_id)
+        statement = select(CommuneDB).where(CommuneDB.c_id == commune_id)
 
         commune_db = self.session.exec(statement).first()
         if commune_db:

@@ -13,8 +13,7 @@ class SQLAlchemyDepartementRepository(AbstractRepository):
         pass
 
     def get_by_id(self, departement_id: int | None = None) -> DepartementDB | None:
-        statement = select(DepartementDB)
-        statement.where(DepartementDB.d_id == departement_id)
+        statement = select(DepartementDB).where(DepartementDB.d_id == departement_id)
 
         departement_db = self.session.exec(statement).first()
         if departement_db:
