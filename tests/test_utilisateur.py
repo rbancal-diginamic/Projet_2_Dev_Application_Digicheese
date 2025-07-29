@@ -20,14 +20,16 @@ def test_post_utilisateur(client: TestClient):
     assert utilisateur_created['u_prenom'] == new_utilisateur['u_prenom'].capitalize()
     assert utilisateur_created['u_username'] == new_utilisateur['u_username'].lower()
 
-# def test_post_client_422(client: TestClient):
-#     new_client = {
-#         "c_genre": "M",
-#         "c_nom": "bancal"
+
+# def test_post_utilisateur_422(client: TestClient):
+#     new_utilisateur = {
+#         "u_prenom": "R",
+#         "u_nom": "bancal"
 #     }
 
-#     response = client.post("/client/", json=new_client)
+#     response = client.post("/utilisateurs/", json=new_utilisateur)
 #     assert response.status_code == 422
+
 
 def test_get_utilisateur_by_id(client: TestClient):
     response = client.get("/utilisateurs/2")
