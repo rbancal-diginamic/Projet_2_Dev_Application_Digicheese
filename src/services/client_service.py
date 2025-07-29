@@ -11,14 +11,14 @@ class ClientService:
         self.repository = SQLAlchemyClientRepository(session)
 
     def __traitement(self, client: ClientPost | ClientPatch) -> dict:
-        client = client.model_dump()
-        client['c_nom'] = client["c_nom"].upper()
-        client['c_prenom'] = client["c_prenom"].capitalize()
-        return client
+        client_traitement = client.model_dump()
+        client_traitement['c_nom'] = client_traitement["c_nom"].upper()
+        client_traitement['c_prenom'] = client_traitement["c_prenom"].capitalize()
+        return client_traitement
 
     def create_client(self, client_body: ClientPost) -> ClientDB:
         client = self.__traitement(client_body)
-        return self.repository.add(client=client)
+        return self.repository.add(client)
 
     def get_client_by_id(self, client_id: int | None = None) -> ClientDB | None:
         return self.repository.get_by_id(client_id)

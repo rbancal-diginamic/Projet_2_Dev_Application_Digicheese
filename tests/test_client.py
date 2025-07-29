@@ -1,3 +1,4 @@
+import pytest
 from fastapi import Response
 from fastapi.testclient import TestClient
 
@@ -11,15 +12,32 @@ def test_get_all_clients(client: TestClient):
     assert isinstance(data, list)
     assert len(data) > 0
 
-def test_post_clients(client: TestClient):
+
+def test_post_client(client: TestClient):
     new_client = {
         "c_genre": "M",
         "c_nom": "bancal",
         "c_prenom": "raphaël"
     }
-    response: Response = client.post("/client/", json=new_client)
+    response = client.post("/client/", json=new_client)
+    print(response)
+
+    print("Status code:", response.status_code)
+    print("Response JSON:", response.json())
+    print("JE NE COMPRENDS PLUS RIEN !!!")
+
     assert response.status_code == 201
-    created_client = response.json()
-    assert created_client['c_genre'] == new_client['c_genre']
-    assert created_client['c_nom'] == new_client['c_nom'].upper()
-    assert created_client['c_prenom'] == new_client['c_prenom'].capitalize()
+    client_created = response.json()
+
+    assert client_created['c_genre'] == new_client['c_genre']
+    assert client_created['c_nom'] == new_client['c_nom'].upper()
+    assert client_created['c_prenom'] == new_client['c_prenom'].capitalize()
+
+def test_post_client_422(client: TestClient):
+    new_client = {
+        "c_genre": "M",
+        "c_nom": "bancal"
+    }
+
+    response = client.post("/client/", json=new_client)
+    assert response.status_code == 422
