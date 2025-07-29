@@ -2,7 +2,7 @@ from decimal import Decimal
 from sqlmodel import SQLModel, Field
 
 class ConditionnementBase(SQLModel):
-    """Table représentant les conditionnements disponibles pour les objets."""
+    """Base pour les schémas et models de l'entité Conditionnement"""
 
     c_libelle: str | None = Field(default=None, max_length=50, nullable=True)
     c_poids: int | None = Field(default=None, nullable=True)

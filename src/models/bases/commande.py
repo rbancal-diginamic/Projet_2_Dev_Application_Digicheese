@@ -3,6 +3,7 @@ from sqlmodel import SQLModel, Field
 
 
 class CommandeBase(SQLModel):
+    """Base pour les schémas et models de l'entité Commande"""
     c_date_commande: datetime | None = Field(default=None, nullable=True)
     c_timbre_client: float | None = Field(default=None, nullable=True)
     c_timbre_commande: float | None = Field(default=None, nullable=True)

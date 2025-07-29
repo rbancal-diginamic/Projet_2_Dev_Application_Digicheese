@@ -8,6 +8,7 @@ from ..repositories.sql_alchemy_commande_repository import SQLAlchemyCommandeRep
 
 
 class CommandeService:
+    """Service to do treatments on Commande entities before commit in database."""
     def __init__(self, session: Session):
         self.repository = SQLAlchemyCommandeRepository(session)
 

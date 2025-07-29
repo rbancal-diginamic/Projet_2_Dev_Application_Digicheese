@@ -3,6 +3,7 @@ from ..bases.objet import ObjetBase
 
 
 class ObjetDB(ObjetBase, table=True):
+    """Schéma de la table Objet représentée en base de données"""
     __tablename__ = "d_objet"
     o_id: int | None = Field(default=None, primary_key=True)
     # FIXME : Décommenter après avoir créer les autres tables !

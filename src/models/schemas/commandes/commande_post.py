@@ -2,6 +2,8 @@ from ...bases.commande import CommandeBase
 
 
 class CommandePost(CommandeBase):
+
+    """Schéma Commande pour création en base de données"""
     
     # FIXME : Décommenter après avoir créer les autres tables !
     # c_fk_client_id : int | None = Field(default=None, foreign_key="d_client.id", nullable=True)

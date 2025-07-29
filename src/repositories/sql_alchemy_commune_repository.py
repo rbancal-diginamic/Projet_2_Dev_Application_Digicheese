@@ -6,6 +6,7 @@ from ..repositories.abstract_repository import AbstractRepository
 
 
 class SQLAlchemyCommuneRepository(AbstractRepository):
+    """Repository for managing Commune entities in the database."""
     def __init__(self, session: Session):
         self.session = session
 

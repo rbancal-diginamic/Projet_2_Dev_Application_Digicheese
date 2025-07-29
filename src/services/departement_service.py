@@ -5,6 +5,7 @@ from ..repositories.sql_alchemy_departement_repository import SQLAlchemyDepartem
 
 
 class DepartementService:
+    """Service to do treatments on Departement entities before commit in database."""
     def __init__(self, session: Session):
         self.repository = SQLAlchemyDepartementRepository(session)
 

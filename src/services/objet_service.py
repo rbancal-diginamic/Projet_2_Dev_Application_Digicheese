@@ -7,6 +7,7 @@ from ..repositories.sql_alchemy_objet_repository import SQLAlchemyObjetRepositor
 
 
 class ObjetService:
+    """Service to do treatments on Objet entities before commit in database."""
     def __init__(self, session: Session):
         self.repository = SQLAlchemyObjetRepository(session)
 

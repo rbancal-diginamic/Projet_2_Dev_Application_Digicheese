@@ -2,7 +2,7 @@ from sqlmodel import Field, SQLModel
 
 
 class ObjetCondDB(SQLModel, table=True):
-    """Table représentant la relation entre les objets et les conditionnements."""
+    """Schéma de la table ObjetCond représentée en base de données"""
     
     __tablename__ = "d_rel_cond"
     

@@ -7,6 +7,7 @@ from ..repositories.sql_alchemy_conditionnement_repository import SQLAlchemyCond
 
 
 class ConditionnementService:
+    """Service to do treatments on Conditionnement entities before commit in database."""
     def __init__(self, session: Session):
         self.repository = SQLAlchemyConditionnementRepository(session)
 

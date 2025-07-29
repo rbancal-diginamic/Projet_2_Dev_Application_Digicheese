@@ -3,6 +3,7 @@ from ..bases.commande import CommandeBase
 
 
 class CommandeDB(CommandeBase, table=True):
+    """Schéma de la table Commande représentée en base de données"""
     __tablename__ = "d_commande"
     c_id: int | None = Field(default=None, primary_key=True)
     # FIXME : Décommenter après avoir créer les autres tables !

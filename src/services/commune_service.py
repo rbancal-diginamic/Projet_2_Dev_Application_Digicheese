@@ -5,6 +5,7 @@ from ..repositories.sql_alchemy_commune_repository import SQLAlchemyCommuneRepos
 
 
 class CommuneService:
+    """Service to do treatments on Commune entities before commit in database."""
     def __init__(self, session: Session):
         self.repository = SQLAlchemyCommuneRepository(session)
 

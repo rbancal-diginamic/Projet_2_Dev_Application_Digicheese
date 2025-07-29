@@ -6,6 +6,7 @@ from ..repositories.abstract_repository import AbstractRepository
 
 
 class SQLAlchemyDepartementRepository(AbstractRepository):
+    """Repository for managing Departement entities in the database."""
     def __init__(self, session: Session):
         self.session = session
 

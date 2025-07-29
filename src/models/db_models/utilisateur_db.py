@@ -10,6 +10,7 @@ if TYPE_CHECKING:
 
 
 class UtilisateurDB(UtilisateurBase, table=True):
+    """Schéma de la table Utilisateur représentée en base de données"""
     __tablename__ = "d_utilisateur"
     u_id: int | None = Field(default=None, primary_key=True)
 

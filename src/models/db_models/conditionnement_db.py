@@ -2,7 +2,7 @@ from sqlmodel import Field
 from ..bases.conditionnement import ConditionnementBase
 
 class ConditionnementDB(ConditionnementBase, table=True):
-    """Table représentant les conditionnements disponibles pour les objets."""
+    """Schéma de la table Conditionnement représentée en base de données"""
 
     __tablename__ = "d_conditionnement"
     

@@ -3,6 +3,7 @@ from ...bases.objet import ObjetBase
 
 
 class ObjetPatch(ObjetBase):
+    """Schéma Objet pour modification en base de données"""
     o_indisponible: int = Field(nullable=True)
     o_ordre_impression: int = Field(nullable=True)
     o_odre_affichage: int = Field(nullable=True)

@@ -10,6 +10,7 @@ if TYPE_CHECKING:
 
 
 class RoleDB(RoleBase, table=True):
+    """Schéma de la table Role représentée en base de données"""
     __tablename__ = "d_role"
     r_id: int | None = Field(default=None, primary_key=True)
 

@@ -7,6 +7,7 @@ from ..repositories.abstract_repository import AbstractRepository
 
 
 class SQLAlchemyObjetRepository(AbstractRepository):
+    """Repository for managing Objet entities in the database."""
     def __init__(self, session: Session):
         self.session = session
 

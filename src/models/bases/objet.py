@@ -3,6 +3,7 @@ from sqlmodel import SQLModel, Field
 
 
 class ObjetBase(SQLModel):
+    """Base pour les schémas et models de l'entité Objet"""
     o_libelle: str | None = Field(default=None, max_length=50, nullable=True)
     o_taille: str | None = Field(default=None, max_length=50, nullable=True)
     o_prix_unitaire : Decimal | None = Field(default=Decimal("0.0000"), nullable=False)

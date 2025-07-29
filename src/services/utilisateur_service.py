@@ -8,6 +8,7 @@ from ..repositories.sql_alchemy_utilisateur_repository import SQLAlchemyUtilisat
 
 
 class UtilisateurService:
+    """Service to do treatments on Utilisateur entities before commit in database."""
     def __init__(self, session: Session):
         self.repository = SQLAlchemyUtilisateurRepository(session)
 

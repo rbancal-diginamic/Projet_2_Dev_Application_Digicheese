@@ -7,6 +7,7 @@ from ..repositories.sql_alchemy_role_repository import SQLAlchemyRoleRepository
 
 
 class RoleService:
+    """Service to do treatments on Role entities before commit in database."""
     def __init__(self, session: Session):
         self.repository = SQLAlchemyRoleRepository(session)
 
