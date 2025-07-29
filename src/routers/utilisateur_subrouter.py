@@ -42,7 +42,7 @@ async def create_utilisateur(body: UtilisateurPost, session: Session = Depends(g
         utilisateur = UtilisateurService(session).create_utilisateur(body)
         return JSONResponse(status_code=status.HTTP_201_CREATED, content=utilisateur.model_dump())
     except HTTPException:
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY)
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=["Un paramètre obligatoire n'est pas renseigné: [u_username]"])
     
 @router.patch("/{id}")
 async def patch_utilisateur(id: int, body: UtilisateurPatch, session: Session = Depends(get_db)):
