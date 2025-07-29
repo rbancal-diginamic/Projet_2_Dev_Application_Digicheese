@@ -2,6 +2,7 @@
 # Modules import #
 ##################
 
+from datetime import date
 import pytest
 from fastapi.testclient import TestClient
 from sqlmodel import create_engine, Session, SQLModel
@@ -34,9 +35,9 @@ def test_db():
         john_doe = ClientDB(c_prenom="John", c_nom="Doe", c_adresse_1="123 Cheese St")
         session.add(john_doe)
         session.commit()
-#c_date_commande="2025-03-01",
-        commande_1 = CommandeDB( c_timbre_client="2.6", c_timbre_commande="2.6",c_nombre_colis="1",
-        c_cheque_client="10.00", c_commentaire="je suis le commantaire de la commande, yo",c_barchive="0",c_bstock="0")
+        #"c_date_commande= date(2025, 3, 1),"
+        commande_1 = CommandeDB(  c_timbre_client=2.6, c_timbre_commande=2.6,c_nombre_colis=1,
+        c_cheque_client=10.00, c_commentaire="je suis le commantaire de la commande, yo",c_barchive=0,c_bstock=0)
         session.add(commande_1)
         session.commit()
 

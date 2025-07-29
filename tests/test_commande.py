@@ -1,3 +1,4 @@
+from datetime import date
 import pytest
 from fastapi import Response
 from fastapi.testclient import TestClient
@@ -16,14 +17,14 @@ def test_get_all_commandes(client: TestClient):
 
 def test_post_commande(client: TestClient):
     new_commande = {
-        #"c_date_commande": "2025-03-01",
-        "c_timbre_client": "2.6",
-        "c_timbre_commande": "2.6",
-        "c_nombre_colis": "1",
-        "c_cheque_client" : "10.00",
+        "c_date_commande": date(2025, 3, 1),
+        "c_timbre_client": 2.6,
+        "c_timbre_commande": 2.6,
+        "c_nombre_colis": 1,
+        "c_cheque_client" : 10.00,
         "c_commentaire": "je suis le commantaire de la commande, yo",
-        "c_barchive": "0",
-        "c_bstock" : "0"
+        "c_barchive": 0,
+        "c_bstock" : 0
     }
     response = client.post("/commande/", json=new_commande)
     print(response)
