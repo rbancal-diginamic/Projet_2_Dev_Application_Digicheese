@@ -21,8 +21,7 @@ class SQLAlchemyUtilisateurRepository(AbstractRepository):
         return [UtilisateurDB.model_validate(u) for u in utilisateur_db]
 
     def get_by_id(self, utilisateur_id: UtilisateurDB.u_id) -> Optional[UtilisateurDB]:
-        statement = select(UtilisateurDB)
-        statement.where(UtilisateurDB.u_id == utilisateur_id)
+        statement = select(UtilisateurDB).where(UtilisateurDB.u_id == utilisateur_id)
         
         utilisateur_db = self.session.exec(statement).first()
         if utilisateur_db:
@@ -30,8 +29,7 @@ class SQLAlchemyUtilisateurRepository(AbstractRepository):
         return None
 
     def get_by_name(self, utilisateur_nom: UtilisateurDB.u_nom) -> Optional[UtilisateurDB]:
-        statement = select(UtilisateurDB)
-        statement.where(UtilisateurDB.u_nom == utilisateur_nom)
+        statement = select(UtilisateurDB).where(UtilisateurDB.u_nom == utilisateur_nom)
 
         utilisateur_db = self.session.exec(statement).first()
         if utilisateur_db:
@@ -39,8 +37,7 @@ class SQLAlchemyUtilisateurRepository(AbstractRepository):
         return None
 
     def get_by_username(self, utilisateur_username: UtilisateurDB.u_username) -> Optional[UtilisateurDB]:
-        statement = select(UtilisateurDB)
-        statement.where(UtilisateurDB.u_username == utilisateur_username)
+        statement = select(UtilisateurDB).where(UtilisateurDB.u_username == utilisateur_username)
 
         utilisateur_db = self.session.exec(statement).first()
         if utilisateur_db:
@@ -48,8 +45,7 @@ class SQLAlchemyUtilisateurRepository(AbstractRepository):
         return None
 
     def update(self, utilisateur_id: int, utilisateur_body: dict) -> UtilisateurDB | None:
-        statement = select(UtilisateurDB)
-        statement.where(UtilisateurDB.u_id == utilisateur_id)
+        statement = select(UtilisateurDB).where(UtilisateurDB.u_id == utilisateur_id)
 
         utilisateur_db = self.session.exec(statement).first()
         if utilisateur_db:
@@ -61,8 +57,7 @@ class SQLAlchemyUtilisateurRepository(AbstractRepository):
         return None
 
     def delete(self, utilisateur_id: UtilisateurDB.u_id) -> bool:
-        statement = select(UtilisateurDB)
-        statement.where(UtilisateurDB.u_id == utilisateur_id)
+        statement = select(UtilisateurDB).where(UtilisateurDB.u_id == utilisateur_id)
 
         utilisateur_db = self.session.exec(statement).first()
         if utilisateur_db:

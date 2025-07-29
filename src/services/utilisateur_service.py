@@ -35,7 +35,7 @@ class UtilisateurService:
         return self.repository.get_by_username(username)
 
     def update_utilisateur(self, u_id: int, utilisateur_body: UtilisateurPatch) -> UtilisateurDB | None:
-        utilisateur = utilisateur_body.model_dump()
+        utilisateur = utilisateur_body.model_dump(exclude_unset=True)
         return self.repository.update(u_id, utilisateur)
 
     def delete_utilisateur(self, u_id: int | None = None) -> bool:

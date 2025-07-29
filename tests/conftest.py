@@ -12,7 +12,7 @@ from sqlmodel import create_engine, Session, SQLModel
 
 from src.main import app
 from src.database import get_db
-from src.models import ClientDB
+from src.models import ClientDB, UtilisateurDB
 
 ############
 # Fixtures #
@@ -34,6 +34,10 @@ def test_db():
         session.add(john_doe)
         session.commit()
 
+        xavier_chaussette = UtilisateurDB(u_prenom="xavier", u_nom="chaussette")
+        session.add(xavier_chaussette)
+        session.commit()
+        
         # Retourne la session de test
         yield session
 
