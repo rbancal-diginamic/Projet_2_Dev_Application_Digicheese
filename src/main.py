@@ -77,7 +77,7 @@ tags_metadata = [
     ]
 app = FastAPI(openapi_tags=tags_metadata)
 # FIXME : Supprimer la 1ere ligne pour la PROD
-# SQLModel.metadata.drop_all(bind=engine)
+SQLModel.metadata.drop_all(bind=engine)
 SQLModel.metadata.create_all(bind=engine)
 app.include_router(global_router)
 
