@@ -31,8 +31,7 @@ class SQLAlchemyObjetRepository(AbstractRepository):
         return None
 
     def update(self, objet_id: int, objet_body: dict) -> ObjetDB | None:
-        statement= select(ObjetDB)
-        statement.where(ObjetDB.o_id==objet_id)
+        statement= select(ObjetDB).where(ObjetDB.o_id==objet_id)
         objet_db = self.session.exec(statement).first()
         if objet_db:
             for key, value in objet_body.items():
@@ -43,8 +42,7 @@ class SQLAlchemyObjetRepository(AbstractRepository):
         return None
 
     def delete(self, objet_id: ObjetDB.o_id) -> bool:
-        statement= select(ObjetDB)
-        statement.where(ObjetDB.o_id == objet_id)
+        statement= select(ObjetDB).where(ObjetDB.o_id == objet_id)
         objet_db = self.session.exec(statement).first()
         if objet_db:
             self.session.delete(objet_db)

@@ -14,7 +14,7 @@ router = APIRouter(prefix="/conditionnements", tags=["Conditionnements"])
 async def get_conditionnement_by_id(id: int, session: Session = Depends(get_db)):
     conditionnement = ConditionnementService(session).get_conditionnement_by_id(id)
     if not conditionnement:
-        return HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Le conditionnements n'existe pas")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Le conditionnements n'existe pas")
     return JSONResponse(status_code=status.HTTP_200_OK, content=conditionnement)
 
 
@@ -22,7 +22,7 @@ async def get_conditionnement_by_id(id: int, session: Session = Depends(get_db))
 async def get_conditionnements(session: Session = Depends(get_db)):
     conditionnements = ConditionnementService(session).get_conditionnements()
     if not conditionnements:
-        return HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Aucun conditionnements trouvé")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Aucun conditionnements trouvé")
     return JSONResponse(status_code=status.HTTP_200_OK, content=conditionnements)
 
 
@@ -32,10 +32,10 @@ async def create_conditionnement(body: ConditionnementPost, session: Session = D
         conditionnement_post = ConditionnementPost.model_validate(body)
         conditionnement = ConditionnementService(session).create_conditionnement(conditionnement_post)
         if not conditionnement:
-            return HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Le conditionnements n'a pas été créé")
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Le conditionnements n'a pas été créé")
         return JSONResponse(status_code=status.HTTP_201_CREATED, content=conditionnement)
     except Exception(BaseException):
-        return HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY)
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
 
 @router.patch("/{id}")
@@ -44,15 +44,15 @@ async def patch_conditionnement(id: int, body: ConditionnementPatch, session: Se
         conditionnement_patch = ConditionnementPatch.model_validate(body)
         conditionnement = ConditionnementService(session).update_conditionnement(id, conditionnement_patch)
         if not conditionnement:
-            return HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Le conditionnements n'existe pas")
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Le conditionnements n'existe pas")
         return JSONResponse(status_code=status.HTTP_200_OK, content=conditionnement)
     except Exception(BaseException):
-        return HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY)
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
 
 @router.delete("/{id}")
 async def delete_conditionnement(id: int, session: Session = Depends(get_db)):
     conditionnement = ConditionnementService(session).delete_conditionnement(id)
     if not conditionnement:
-        return HTTPException(status_code=status.HTTP_404_NOT_FOUND)
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
     return JSONResponse(status_code=status.HTTP_200_OK, content="Le conditionnements a été supprimé")

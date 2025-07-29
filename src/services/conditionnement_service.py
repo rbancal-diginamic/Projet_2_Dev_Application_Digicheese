@@ -21,7 +21,7 @@ class ConditionnementService:
         return self.repository.get_all()
 
     def update_conditionnement(self, conditionnement_id: int, conditionnement_body: ConditionnementPatch) -> ConditionnementDB | None :
-        conditionnement = conditionnement_body.model_dump()
+        conditionnement = conditionnement_body.model_dump(exlude_unset=True)
         return self.repository.update(conditionnement_id, conditionnement)
 
     def delete_conditionnement(self, c_id: int | None = None) -> bool:

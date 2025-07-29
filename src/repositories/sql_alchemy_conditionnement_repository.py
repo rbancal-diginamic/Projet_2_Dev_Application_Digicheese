@@ -17,8 +17,7 @@ class SQLAlchemyConditionnementRepository(AbstractRepository):
         return conditionnement_db
 
     def get_by_id(self, conditionnement_id: int | None = None) -> ConditionnementDB | None:
-        statement = select(ConditionnementDB)
-        statement.where(ConditionnementDB.c_id == conditionnement_id)
+        statement = select(ConditionnementDB).where(ConditionnementDB.c_id == conditionnement_id)
 
         conditionnement_db = self.session.exec(statement).first()
         if conditionnement_db:
@@ -32,8 +31,7 @@ class SQLAlchemyConditionnementRepository(AbstractRepository):
         return [ConditionnementDB.model_validate(conditionnement) for conditionnement in conditionnements_db]
 
     def update(self, conditionnement_id: int, conditionnement_body: dict) -> ConditionnementDB | None:
-        statement = select(ConditionnementDB)
-        statement.where(ConditionnementDB.c_id == conditionnement_id)
+        statement = select(ConditionnementDB).where(ConditionnementDB.c_id == conditionnement_id)
 
         conditionnement_db = self.session.exec(statement).first()
         if conditionnement_db:
@@ -45,8 +43,7 @@ class SQLAlchemyConditionnementRepository(AbstractRepository):
         return None
 
     def delete(self, conditionnement_id: int | None = None) -> bool:
-        statement = select(ConditionnementDB)
-        statement.where(ConditionnementDB.c_id == conditionnement_id)
+        statement = select(ConditionnementDB).where(ConditionnementDB.c_id == conditionnement_id)
 
         conditionnement_db = self.session.exec(statement).first()
         if conditionnement_db:

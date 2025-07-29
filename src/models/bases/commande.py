@@ -4,7 +4,7 @@ from sqlmodel import SQLModel, Field
 
 class CommandeBase(SQLModel):
     
-    c_datcdee: date | None = Field(default=None, nullable=True)
+    c_date_commande: date | None = Field(default=None, nullable=True)
     c_timbre_client: float | None = Field(default=None, nullable=True)
     c_timbre_commande: float | None = Field(default=None, nullable=True)
     c_nombre_colis: int = Field(default=1)

@@ -21,7 +21,7 @@ class CommandeService:
         return self.repository.get_all()
 
     def update_commande(self, commande_id: int, commande_body: CommandePatch) -> CommandeDB | None :
-        commande = commande_body.model_dump()
+        commande = commande_body.model_dump(exlude_unset=True)
         return self.repository.update(commande_id, commande)
 
     def delete_commande(self, c_id: int | None = None) -> bool:

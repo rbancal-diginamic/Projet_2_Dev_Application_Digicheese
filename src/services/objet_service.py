@@ -21,7 +21,7 @@ class ObjetService:
         return self.repository.get_all()
 
     def update_objet(self, objet_id: int, objet_body: ObjetPatch) -> ObjetDB | None :
-        objet = objet_body.model_dump()
+        objet = objet_body.model_dump(exlude_unset=True)
         return self.repository.update(objet_id, objet)
 
     def delete_objet(self, o_id: int | None = None) -> bool:
