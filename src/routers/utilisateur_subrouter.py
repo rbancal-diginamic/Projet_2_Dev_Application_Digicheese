@@ -8,36 +8,66 @@ from ..services.utilisateur_service import UtilisateurService
 
 router = APIRouter(prefix="/utilisateurs", tags=["Utilisateurs"])
 
-@router.get("/")
+@router.get(
+        "/",
+        status_code=status.HTTP_200_OK,
+        summary="Get toutes les utilisateurs",
+        description="Renvoie toutes les utilisateurs "       
+)
 async def get_utilisateurs(session: Session = Depends(get_db)):
+    """Renvoie toutes les utilisateurs """
     utilisateurs = UtilisateurService(session).get_utilisateurs()
     if not utilisateurs:
         return HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Aucun utilisateur trouvé")
     return JSONResponse(status_code=status.HTTP_200_OK, content=utilisateurs)
 
-@router.get("/{id}")
+@router.get(
+        "/{id}",
+        status_code=status.HTTP_200_OK,
+        summary="Get un utilisateur avec un id",
+        description="Renvoie l'utilisateur'" 
+        )
 async def get_utilisateur_by_id(id: int, session: Session = Depends(get_db)):
+    """Renvoie l'utilisateur """   
     utilisateur = UtilisateurService(session).get_utilisateur_by_id(id)
     if not utilisateur:
         return HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="L'utilisateur n'existe pas")
     return JSONResponse(status_code=status.HTTP_200_OK, content=utilisateur)
 
-@router.get("/{name}")
+@router.get(
+        "/{name}",
+        status_code=status.HTTP_200_OK,
+        summary="Get une utilisateur avec un nom",
+        description="Renvoie l'utilisateur "       
+)
 async def get_utilisateur_by_name(name: str, session: Session = Depends(get_db)):
+    """Renvoie l'utilisateur """     
     utilisateur = UtilisateurService(session).get_utilisateur_by_name(name)
     if not utilisateur:
         return HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="L'utilisateur n'existe pas")
     return JSONResponse(status_code=status.HTTP_200_OK, content=utilisateur)
 
-@router.get("/{username}")
+@router.get(
+        "/{username}",
+        status_code=status.HTTP_200_OK,
+        summary="Get un utilisateur avec un prénom",
+        description="Renvoie l'utilisateur "    
+)
 async def get_utilisateur_by_username(username: str, session: Session = Depends(get_db)):
+    """Renvoie l'utilisateur """     
     utilisateur = UtilisateurService(session).get_utilisateur_by_username(username)
     if not utilisateur:
         return HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="L'utilisateur n'existe pas")
     return JSONResponse(status_code=status.HTTP_200_OK, content=utilisateur)
 
-@router.post("/")
+@router.post(
+        "/",
+        status_code=status.HTTP_201_CREATED,
+        summary="Post pour un utilisateur",
+        description="Créé un utilisateur "
+)
 async def create_utilisateur(body: UtilisateurPost, session: Session = Depends(get_db)):
+    """Créé un utilisateur """    
     try:
         utilisateur_post = UtilisateurPost.model_validate(body)
         utilisateur = UtilisateurService(session).create_utilisateur(utilisateur_post)
@@ -47,8 +77,14 @@ async def create_utilisateur(body: UtilisateurPost, session: Session = Depends(g
     except Exception(BaseException):
         return HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY)
     
-@router.patch("/{id}")
+@router.patch(
+        "/{id}",
+        status_code=status.HTTP_200_OK,
+        summary="Patch pour un utilisateur",
+        description="mise à jour pour un utilisateur " 
+)
 async def patch_utilisateur(id: int, body: UtilisateurPatch, session: Session = Depends(get_db)):
+    """mise à jour pour un utilisateur"""     
     try:
         utilisateur_patch = UtilisateurPatch.model_validate(body)
         utilisateur = UtilisateurService(session).update_utilisateur(id, utilisateur_patch)
@@ -58,7 +94,12 @@ async def patch_utilisateur(id: int, body: UtilisateurPatch, session: Session = 
     except Exception(BaseException):
         return HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
-@router.delete("/{id}")
+@router.delete(
+        "/{id}",
+        status_code=status.HTTP_204_NO_CONTENT,
+        summary="Delete pour un utilisateur",
+        description="suppression pour un utilisateur "        
+)
 async def delete_utilisateur(id: int, session: Session = Depends(get_db)):
     utilisateur = UtilisateurService(session).delete_utilisateur(id)
     if not utilisateur:

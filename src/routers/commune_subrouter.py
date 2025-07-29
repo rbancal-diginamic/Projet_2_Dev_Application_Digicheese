@@ -8,16 +8,28 @@ from ..services.commune_service import CommuneService
 router = APIRouter(prefix="/commune", tags=["communes"])
 
 
-@router.get("/{id}")
+@router.get(
+        "/{id}",
+        status_code=status.HTTP_200_OK,
+        summary="Get une commune avec un id",
+        description="Renvoie la commune "    
+)
 async def get_commune_by_id(id: int, session: Session = Depends(get_db)):
+    """Renvoie la commune """       
     commune = CommuneService(session).get_commune_by_id(id)
     if not commune:
         return HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Commune non trouvée")
     return JSONResponse(status_code=status.HTTP_200_OK, content=commune)
 
 
-@router.get("/")
+@router.get(
+        "/",
+        status_code=status.HTTP_200_OK,
+        summary="Get toutes les communes",
+        description="Renvoie toutes les communes "       
+)
 async def get_communes(session: Session = Depends(get_db)):
+    """Renvoie les communes """   
     communes = CommuneService(session).get_communes()
     if not communes:
         return HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Communes non trouvées")

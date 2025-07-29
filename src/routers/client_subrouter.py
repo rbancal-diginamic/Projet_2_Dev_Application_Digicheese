@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from fastapi.responses import JSONResponse
 from sqlmodel import Session
 
@@ -11,33 +11,63 @@ from ..services.client_service import ClientService
 router = APIRouter(prefix="/client", tags=["Clients"])
 
 
-@router.get("/{id}", status_code=status.HTTP_200_OK)
-async def get_client_by_id(id: int, session: Session = Depends(get_db)):
+@router.get(
+        "/{id}", 
+        status_code=status.HTTP_200_OK,
+        summary="Get un client avec un id",
+        description="Renvoie le client "
+)
+async def get_client_by_id(id: int,
+                           session: Session = Depends(get_db)):
+    """Renvoie le client """
     client = ClientService(session).get_client_by_id(id)
     if not client:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=["Le client n'existe pas"])
     return JSONResponse(status_code=status.HTTP_200_OK, content=client.model_dump())
 
 
-@router.get("/", status_code=status.HTTP_200_OK)
-async def get_clients(session: Session = Depends(get_db)):
+@router.get(
+        "/",
+        status_code=status.HTTP_200_OK,
+        summary="Get all clients",
+        description="Renvoie tous les clients "
+)
+async def get_clients(limit: int = Query(default=5, ge=1, le=100, 
+                                         description="Nombre de clients à retourner"), 
+    
+    session: Session = Depends(get_db)
+    ):
+    """Renvoie tous les clients """
     clients = ClientService(session).get_clients()
     if not clients:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=[])
     return JSONResponse(status_code=status.HTTP_200_OK, content=[client.model_dump() for client in clients])
 
 
-@router.post("/", status_code=status.HTTP_201_CREATED)
+@router.post(
+        "/", 
+        status_code=status.HTTP_201_CREATED,
+        summary="Post pour un client",
+        description="Créé un client "
+)
 async def create_client(body: ClientPost, session: Session = Depends(get_db)):
+    """Créé un client """
     try:
         client = ClientService(session).create_client(body)
         return JSONResponse(status_code=status.HTTP_201_CREATED, content=client.model_dump())
     except HTTPException:
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=["Un paramètre obligatoire n'est pas renseigné: [c_nom, c_prenom]"])
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, 
+                            detail=["Un paramètre obligatoire n'est pas renseigné: [c_nom, c_prenom]"])
 
 
-@router.patch("/{id}", status_code=status.HTTP_200_OK)
+@router.patch(
+        "/{id}", 
+        status_code=status.HTTP_200_OK,
+        summary="Patch pour un client",
+        description="mise à jour pour un client "
+)
 async def patch_client(id: int, body: ClientPatch, session: Session = Depends(get_db)):
+    """mise à jour pour un client"""
     try:
         client = ClientService(session).update_client(id, body)
         return JSONResponse(status_code=status.HTTP_200_OK, content=client.model_dump())
@@ -45,8 +75,14 @@ async def patch_client(id: int, body: ClientPatch, session: Session = Depends(ge
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
 
-@router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete(
+        "/{id}", 
+        status_code=status.HTTP_204_NO_CONTENT,
+        summary="Delete pour un client",
+        description="suppression pour un client "
+)
 async def delete_client(id: int, session: Session = Depends(get_db)):
+    """suppression pour un client """
     client = ClientService(session).delete_client(id)
     if not client:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)

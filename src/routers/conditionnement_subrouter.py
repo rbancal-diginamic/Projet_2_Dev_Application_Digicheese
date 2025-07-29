@@ -10,24 +10,42 @@ from ..services.conditionnement_service import ConditionnementService
 router = APIRouter(prefix="/conditionnements", tags=["Conditionnements"])
 
 
-@router.get("/{id}")
+@router.get(
+        "/{id}",
+        status_code=status.HTTP_200_OK,
+        summary="Get un conditionnement avec un id",
+        description="Renvoie le conditionnement "        
+)
 async def get_conditionnement_by_id(id: int, session: Session = Depends(get_db)):
+    """Renvoie le conditionnement """   
     conditionnement = ConditionnementService(session).get_conditionnement_by_id(id)
     if not conditionnement:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Le conditionnements n'existe pas")
     return JSONResponse(status_code=status.HTTP_200_OK, content=conditionnement)
 
 
-@router.get("/")
+@router.get(
+        "/",
+        status_code=status.HTTP_200_OK,
+        summary="Get tous les conditionnements",
+        description="Renvoie tous les conditionnements "
+)
 async def get_conditionnements(session: Session = Depends(get_db)):
+    """Renvoie tous les conditionnements """   
     conditionnements = ConditionnementService(session).get_conditionnements()
     if not conditionnements:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Aucun conditionnements trouvé")
     return JSONResponse(status_code=status.HTTP_200_OK, content=conditionnements)
 
 
-@router.post("/")
+@router.post(
+        "/",
+        status_code=status.HTTP_201_CREATED,
+        summary="Post pour un conditionnement",
+        description="Créé un conditionnement "      
+)
 async def create_conditionnement(body: ConditionnementPost, session: Session = Depends(get_db)):
+    """Créé un conditionnement"""   
     try:
         conditionnement_post = ConditionnementPost.model_validate(body)
         conditionnement = ConditionnementService(session).create_conditionnement(conditionnement_post)
@@ -38,8 +56,14 @@ async def create_conditionnement(body: ConditionnementPost, session: Session = D
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
 
-@router.patch("/{id}")
+@router.patch(
+        "/{id}",
+        status_code=status.HTTP_200_OK,
+        summary="Patch pour un conditionnement",
+        description="mise à jour pour un conditionnement "         
+)
 async def patch_conditionnement(id: int, body: ConditionnementPatch, session: Session = Depends(get_db)):
+    """mise à jour un conditionnement"""       
     try:
         conditionnement_patch = ConditionnementPatch.model_validate(body)
         conditionnement = ConditionnementService(session).update_conditionnement(id, conditionnement_patch)
@@ -50,8 +74,14 @@ async def patch_conditionnement(id: int, body: ConditionnementPatch, session: Se
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
 
-@router.delete("/{id}")
+@router.delete(
+        "/{id}",
+        status_code=status.HTTP_204_NO_CONTENT,
+        summary="Delete pour un conditionnement",
+        description="suppression pour un conditionnement "     
+)
 async def delete_conditionnement(id: int, session: Session = Depends(get_db)):
+    """suppression pour un conditionnement """   
     conditionnement = ConditionnementService(session).delete_conditionnement(id)
     if not conditionnement:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)

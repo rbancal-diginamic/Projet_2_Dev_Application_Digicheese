@@ -32,7 +32,50 @@ from .models import (
 
 from .routers import global_router
 
-app = FastAPI()
+tags_metadata = [
+    {
+        "name": "Clients",
+        "description": "Opérations sur la table Client.",
+
+    },
+    {
+        "name": "Commandes",
+        "description": "Opérations sur la table Commandes.",
+
+    },
+        {
+        "name": "Objets",
+        "description": "Opérations sur la table Objets",
+
+    },
+        {
+        "name": "Departements",
+        "description": "Opérations sur la table Departements.",
+
+    },
+        {
+        "name": "communes",
+        "description": "Opérations sur la table communes.",
+
+    },
+        {
+        "name": "Role",
+        "description": "Opérations sur la table Role.",
+
+    },
+        {
+        "name": "Utilisateurs",
+        "description": "Opérations sur la table Utilisateurs.",
+
+    },
+        {
+        "name": "Conditionnements",
+        "description": "Opérations sur la table Conditionnements.",
+
+    }
+
+    ]
+app = FastAPI(openapi_tags=tags_metadata)
 # FIXME : Supprimer la 1ere ligne pour la PROD
 # SQLModel.metadata.drop_all(bind=engine)
 SQLModel.metadata.create_all(bind=engine)
