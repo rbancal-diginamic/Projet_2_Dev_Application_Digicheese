@@ -2,6 +2,7 @@ from sqlmodel import SQLModel, Field
 
 
 class ClientBase(SQLModel):
+    """Base pour les schémas et models de l'entité Client"""
     c_genre: str | None = Field(default=None, max_length=8, nullable=True)
     c_nom: str = Field(max_length=40, index=True)
     c_prenom: str = Field(max_length=30)

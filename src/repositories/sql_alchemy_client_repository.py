@@ -6,6 +6,7 @@ from ..repositories.abstract_repository import AbstractRepository
 
 
 class SQLAlchemyClientRepository(AbstractRepository):
+    """Repository for managing Client entities in the database."""
     def __init__(self, session: Session):
         self.session = session
 

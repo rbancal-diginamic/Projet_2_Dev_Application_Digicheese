@@ -7,6 +7,7 @@ from ..repositories.sql_alchemy_client_repository import SQLAlchemyClientReposit
 
 
 class ClientService:
+    """Service to do treatments on Client entities before commit in database."""
     def __init__(self, session: Session):
         self.repository = SQLAlchemyClientRepository(session)
 

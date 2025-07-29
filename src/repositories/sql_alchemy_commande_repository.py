@@ -13,6 +13,7 @@ class SQLAlchemyCommandeRepository(AbstractRepository):
         commande_db = CommandeDB(**commande)
         self.session.add(commande_db)
         self.session.commit()
+        self.session.refresh(commande_db)
         return commande_db
 
     def get_by_id(self, commande_id: int) -> Optional[CommandeDB]:
@@ -37,9 +38,11 @@ class SQLAlchemyCommandeRepository(AbstractRepository):
             CommandeDB(**commande.model_dump())
             self.session.commit()
 
-    def delete(self, commande_id: CommandeDB.c_id) -> None:
+    def delete(self, commande_id: int | None = None) -> bool:
         statement = select(CommandeDB).where(CommandeDB.c_id == commande_id)
-        commande_db = self.session.exec(statement).gfirst
-        if commande_db:
-            self.session.delete(commande_db)
-            self.session.commit()
+        commande_db = self.session.exec(statement).first()
+        if not commande_db:
+            return False
+        self.session.delete(commande_db)
+        self.session.commit()
+        return True

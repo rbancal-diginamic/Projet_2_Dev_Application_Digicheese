@@ -60,4 +60,4 @@ def test_patch_client(client: TestClient):
 
 def test_delete_client(client: TestClient):
     response = client.delete("/client/1")
-    assert response.status_code == 200
+    assert response.status_code == 204
