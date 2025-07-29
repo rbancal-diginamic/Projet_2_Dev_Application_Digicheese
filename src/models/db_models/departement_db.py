@@ -7,6 +7,7 @@ if TYPE_CHECKING:
 
 
 class DepartementDB(DepartementBase, table=True):
+    """Schéma de la table Departement représentée en base de données"""
     __tablename__ = "d_departement"
     __table_args__ = {"extend_existing": True}
     d_id: int | None = Field(default=None, primary_key=True)

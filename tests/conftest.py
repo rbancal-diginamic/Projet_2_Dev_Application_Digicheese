@@ -16,6 +16,7 @@ from src.database import get_db
 from src.models import ClientDB
 from src.models import CommandeDB
 
+
 ############
 # Fixtures #
 ############
@@ -30,27 +31,36 @@ def test_db():
     engine = create_engine(db_url, echo=False)
     SQLModel.metadata.drop_all(engine)
     SQLModel.metadata.create_all(engine)
-    
+
     with Session(engine) as session:
         john_doe = ClientDB(c_prenom="John", c_nom="Doe", c_adresse_1="123 Cheese St")
         session.add(john_doe)
         session.commit()
-        #"c_date_commande= date(2025, 3, 1),"
-        commande_1 = CommandeDB(  c_timbre_client=2.6, c_timbre_commande=2.6,c_nombre_colis=1,
-        c_cheque_client=10.00, c_commentaire="je suis le commantaire de la commande, yo",c_barchive=0,c_bstock=0)
+
+        # "c_date_commande= date(2025, 3, 1),"
+        commande_1 = CommandeDB(
+            c_timbre_client=2.6,
+            c_timbre_commande=2.6,
+            c_nombre_colis=1,
+            c_cheque_client=10.00,
+            c_commentaire="je suis le commantaire de la commande, yo",
+            c_barchive=0,
+            c_bstock=0
+        )
         session.add(commande_1)
         session.commit()
-
 
         # Retourne la session de test
         yield session
 
+
 @pytest.fixture(scope="function")
 def client(test_db):
     """Crée un client FastAPI qui utilise la session de test en override."""
+
     def override_get_db():
         yield test_db
-        
+
     # Ecrase la connexion à l'ancienne base de données par la nouvelle
     app.dependency_overrides[get_db] = override_get_db
 

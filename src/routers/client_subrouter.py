@@ -11,7 +11,7 @@ from ..services.client_service import ClientService
 router = APIRouter(prefix="/client", tags=["Clients"])
 
 
-@router.get("/{id}")
+@router.get("/{id}", status_code=status.HTTP_200_OK)
 async def get_client_by_id(id: int, session: Session = Depends(get_db)):
     client = ClientService(session).get_client_by_id(id)
     if not client:
@@ -19,7 +19,7 @@ async def get_client_by_id(id: int, session: Session = Depends(get_db)):
     return JSONResponse(status_code=status.HTTP_200_OK, content=client.model_dump())
 
 
-@router.get("/")
+@router.get("/", status_code=status.HTTP_200_OK)
 async def get_clients(session: Session = Depends(get_db)):
     clients = ClientService(session).get_clients()
     if not clients:
@@ -27,7 +27,7 @@ async def get_clients(session: Session = Depends(get_db)):
     return JSONResponse(status_code=status.HTTP_200_OK, content=[client.model_dump() for client in clients])
 
 
-@router.post("/")
+@router.post("/", status_code=status.HTTP_201_CREATED)
 async def create_client(body: ClientPost, session: Session = Depends(get_db)):
     try:
         client = ClientService(session).create_client(body)
@@ -36,7 +36,7 @@ async def create_client(body: ClientPost, session: Session = Depends(get_db)):
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=["Un paramètre obligatoire n'est pas renseigné: [c_nom, c_prenom]"])
 
 
-@router.patch("/{id}")
+@router.patch("/{id}", status_code=status.HTTP_200_OK)
 async def patch_client(id: int, body: ClientPatch, session: Session = Depends(get_db)):
     try:
         client = ClientService(session).update_client(id, body)
@@ -45,9 +45,9 @@ async def patch_client(id: int, body: ClientPatch, session: Session = Depends(ge
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
 
-@router.delete("/{id}")
+@router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_client(id: int, session: Session = Depends(get_db)):
     client = ClientService(session).delete_client(id)
     if not client:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
-    return JSONResponse(status_code=status.HTTP_200_OK, content="Le client a été supprimé")
+    return JSONResponse(status_code=status.HTTP_204_NO_CONTENT, content="Le client a été supprimé")
